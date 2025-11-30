@@ -10,3 +10,16 @@
 
 # OS
 .DS_Store
+
+# Secrets and sensitive data
+*secret*
+*password*
+*credential*
+*.key
+*.pem
+.env
+.env.*
+**/Clipboard.json
+**/*password*.json
+**/*secret*.json
+**/*token*.json
