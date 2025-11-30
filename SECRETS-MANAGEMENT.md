@@ -75,15 +75,15 @@ pass git init
 ```bash
 # Store JIRA token
 pass insert work/jira-api-token
-# Enter: ATATT3xFfGF0yaWn91tQl_bn6oc3LZbZLg4rcnRzXN-K5SXtV02XiLls2UPP8vebNWFMdeM4J2HnL1ovq45ROcT2Q49jc_FLKrpXmB6JMs4bsMpxNWgueJXWQQyl5UStfXwPGXAKM9rfkw_oTfq4UusjND4eIBWuNFPbAZgdkw3t8fT9959Hi0w=3DAF90F0
+# Enter: ATATT3xFfGF...<REDACTED>
 
 # Store DB password
 pass insert db/noe-tracker-password
-# Enter: kyW&Bm%4S^GDZy4
+# Enter: <REDACTED>
 
 # Store mount password
 pass insert mount/nuc3-cifs
-# Enter: qtin
+# Enter: <REDACTED>
 
 # Store other secrets
 pass insert api/openai
@@ -104,7 +104,7 @@ export JIRA_API_TOKEN=$(pass work/jira-api-token)
 
 # Mount example:
 # OLD:
-# mount -t cifs //nuc3.local/wd2tb1/DOCUMENTS ~/DOCS_WD2TB1 -o username=aj,password=qtin
+# mount -t cifs //nuc3.local/wd2tb1/DOCUMENTS ~/DOCS_WD2TB1 -o username=aj,password=<REDACTED>
 
 # NEW:
 mount -t cifs //nuc3.local/wd2tb1/DOCUMENTS ~/DOCS_WD2TB1 -o username=aj,password=$(pass mount/nuc3-cifs)

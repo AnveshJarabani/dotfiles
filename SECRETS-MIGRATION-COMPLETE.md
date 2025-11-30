@@ -131,7 +131,7 @@ These credentials were committed to git and should be rotated:
    - Generate new token
    - Update: `pass edit work/jira-api-token`
 
-2. **Database Password** (kyW&Bm%4S^GDZy4)
+2. **Database Password** (<REDACTED>)
    - Contact DBA to rotate
    - Update: `pass edit db/noe-tracker-password`
    - Update: `pass edit db/noe-tracker-connection`
