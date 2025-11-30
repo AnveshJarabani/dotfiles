@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Switch between personal and work git profiles
+
+case "$1" in
+    personal|p)
+        git config --global user.name "AnveshJarabani"
+        git config --global user.email "xzput@outlook.com"
+        git config --global user.signingkey "12AB229CE64A58C5"
+        git config --global core.sshCommand "ssh -i ~/.ssh/id_rsa"
+        echo "✓ Switched to PERSONAL git profile"
+        echo "  Name: AnveshJarabani"
+        echo "  Email: xzput@outlook.com"
+        echo "  GPG Key: 12AB229CE64A58C5"
+        ;;
+    
+    work|w)
+        git config --global user.name "AnveshJarabani"
+        git config --global user.email "anvesh.jarabani@wellsky.com"
+        git config --global user.signingkey "2B9BE0A0C0632BBE"
+        git config --global core.sshCommand "ssh -i ~/.ssh/git_p"
+        echo "✓ Switched to WORK git profile"
+        echo "  Name: AnveshJarabani"
+        echo "  Email: anvesh.jarabani@wellsky.com"
+        echo "  GPG Key: 2B9BE0A0C0632BBE"
+        ;;
+    
+    show|s|*)
+        echo "Current git config:"
+        echo "  Name: $(git config --global user.name)"
+        echo "  Email: $(git config --global user.email)"
+        echo "  SSH Key: $(git config --global core.sshCommand)"
+        echo ""
+        echo "Usage: git-profile [personal|p|work|w|show|s]"
+        ;;
+esac
