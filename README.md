@@ -70,7 +70,7 @@ sudo pacman -S stow    # Arch
 
 ```bash
 # 1. Clone this repository
-git clone git@github-p:AnveshJarabani/dotfiles.git ~/dotfiles
+git clone git@github.com:AnveshJarabani/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 
 # 2. Install configs (choose your OS)
