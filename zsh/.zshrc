@@ -85,7 +85,7 @@ plugins=(
 		uv
 		copypath)
 # Load fzf-history config BEFORE oh-my-zsh
-source ~/PERSONAL/PRIVATE/CUSTOMIZATIONS/fzf-history-config.zsh
+source ~/.config/zsh/fzf-history-config.zsh
 ZSH_TMUX_AUTOSTART="true"
 source $ZSH/oh-my-zsh.sh
 source ~/.config/.fzf-marks/fzf-marks.plugin.zsh
@@ -94,12 +94,12 @@ source ~/.config/.fzf-marks/fzf-marks.plugin.zsh
 eval "$(fzf --zsh)"
 
 eval "$(zoxide init zsh)"
-# Source modular configurations
-source ~/PERSONAL/PRIVATE/CUSTOMIZATIONS/fzf-tab-config.zsh
-source ~/PERSONAL/PRIVATE/CUSTOMIZATIONS/zoxide-config.zsh
-source ~/PERSONAL/PRIVATE/CUSTOMIZATIONS/fzf-config.zsh
-source ~/PERSONAL/PRIVATE/CUSTOMIZATIONS/fzf-aliases.zsh
-source ~/PERSONAL/PRIVATE/CUSTOMIZATIONS/colors-config.zsh
+# Source modular configurations from ~/.config/zsh/
+source ~/.config/zsh/fzf-tab-config.zsh
+source ~/.config/zsh/zoxide-config.zsh
+source ~/.config/zsh/fzf-config.zsh
+source ~/.config/zsh/fzf-aliases.zsh
+source ~/.config/zsh/colors-config.zsh
 alias src="source ~/.zshrc"
 alias python=python3.13
 alias z=zi
@@ -137,8 +137,9 @@ alias jl="jira sprint  list --current -a$(jira me)"
 alias sftp="sshfs -o IdentityFile=<(pass ssh/sftpgo_wsl) -p 2022 wsl@sftp.local:/ /mnt/sftpgo"
 alias unmount="fusermount -u /mnt/sftpgo"
 alias b="buku --deep -S"
-alias zn='/root/PERSONAL/PRIVATE/CUSTOMIZATIONS/zoxide_openfiles_nvim.sh'
-alias zl='/root/PERSONAL/PRIVATE/CUSTOMIZATIONS/fzf_listoldfiles.sh'
+# Custom scripts (from ~/bin via stow)
+alias zn='zoxide_openfiles_nvim.sh'
+alias zl='fzf_listoldfiles.sh'
 git config --global user.name "AvneshJarabani-Wellsky"
 git config --global user.email "anvesh.jarabani@wellsky.com"
 ggg() {
@@ -310,18 +311,25 @@ function y() {
 }
 
 sync_edge_bookmarks() {
-  # Step 1: Run the PowerShell script to export Edge bookmarks to HTML
-  powershell.exe -ExecutionPolicy Bypass -File "$(wslpath -w /root/PERSONAL/PRIVATE/CUSTOMIZATIONS/EdgeChromium-Bookmarks-Backup-JSON-to-HTML.ps1)"
+  # EdgeChromium script path (if needed, move to dotfiles or keep here)
+  local ps_script="$HOME/PERSONAL/PRIVATE/CUSTOMIZATIONS/EdgeChromium-Bookmarks-Backup-JSON-to-HTML.ps1"
+  
+  if [ -f "$ps_script" ]; then
+    powershell.exe -ExecutionPolicy Bypass -File "$(wslpath -w "$ps_script")"
+  else
+    echo "EdgeChromium script not found"
+    return 1
+  fi
 
-  # Step 2: Move today's exported HTML file to your WSL path
+  # Move today's exported HTML file to your WSL path
   mv /mnt/c/Users/AnveshJarabani/Documents/EdgeChromium-Bookmarks.backup_$(date +%Y-%m-%d)_*.html \
-     /root/PERSONAL/PRIVATE/edgebookmarks.html
+     "$HOME/PERSONAL/PRIVATE/edgebookmarks.html"
 
-  # Step 3: Delete existing Buku database with auto-confirmation
+  # Delete existing Buku database with auto-confirmation
   yes y| buku --nostdin -d
 
-  # Step 4: Import the new bookmarks with auto-tagging and no prompts
-  yes y | buku --nostdin -i /root/PERSONAL/PRIVATE/edgebookmarks.html --tag "$(date +%Y%b%d)"
+  # Import the new bookmarks with auto-tagging and no prompts
+  yes y | buku --nostdin -i "$HOME/PERSONAL/PRIVATE/edgebookmarks.html" --tag "$(date +%Y%b%d)"
 }
 # Disable bracketed paste mode
 # unset zle_bracketed_paste
