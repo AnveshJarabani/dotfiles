@@ -1,9 +1,10 @@
 # 🎨 Anvesh's Dotfiles
 
-> A modern, modular dotfile setup managed with GNU Stow for maximum portability and ease of use across Linux machines.
+> A modern, modular dotfile setup managed with GNU Stow for maximum portability and ease of use across Linux and Windows machines.
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![GNU Stow](https://img.shields.io/badge/managed%20with-GNU%20Stow-blue)](https://www.gnu.org/software/stow/)
+[![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows-lightgrey)](https://github.com/AnveshJarabani/dotfiles)
 
 ---
 
@@ -13,7 +14,7 @@
 - 🔗 **Symlink magic** - GNU Stow creates symlinks automatically
 - 📦 **Modular** - Install only what you need
 - 🔄 **Git-tracked** - All changes versioned and synced
-- 💻 **Cross-machine** - Same configs on all your Linux boxes
+- 💻 **Cross-platform** - Linux + Windows configs in one repo
 - 🔒 **Private repo** - Keep your secrets safe
 
 ---
@@ -22,23 +23,34 @@
 
 ```
 ~/dotfiles/
-├── 📝 nvim/                  Neovim configuration
-│   └── .config/nvim/         LazyVim setup with custom plugins
-├── 🖥️  tmux/                  Tmux configuration
-│   └── .tmux.conf            Vi-mode, custom keybindings
-├── 🐚 zsh/                   Zsh shell configuration
-│   └── .zshrc                Oh-My-Zsh, aliases, functions
-├── 🎨 colors/                Terminal color schemes
-│   └── .colors-config.zsh    LS_COLORS, syntax highlighting
-├── 🦥 lazygit/               LazyGit TUI configuration
-│   └── config.yml            Theme and keybindings
-├── ⭐ starship/              Starship prompt configuration
-│   └── .starship.toml        Custom prompt theme
-├── 📜 scripts/               Custom shell scripts
-│   └── bin/                  Executable scripts
-│       ├── gitmoji-commit    AI-powered commit messages
-│       └── ...
-└── 📖 README.md              This file!
+├── 🐧 LINUX CONFIGS
+│   ├── nvim/              Neovim (LazyVim + 100+ plugins)
+│   ├── tmux/              Tmux (Vi-mode, custom keybindings)
+│   ├── zsh/               Zsh (Oh-My-Zsh + P10k)
+│   ├── p10k/              Powerlevel10k theme
+│   ├── colors/            Terminal color schemes
+│   ├── lazygit/           LazyGit TUI
+│   ├── lazydocker/        LazyDocker TUI
+│   ├── starship/          Starship prompt
+│   ├── btop/              System monitor
+│   ├── yazi/              File manager
+│   ├── ranger/            File manager
+│   ├── neofetch/          System info
+│   ├── aicommit/          AI commit messages
+│   ├── gitignore/         Global git ignore
+│   └── scripts/           Custom scripts
+│
+├── 🪟 WINDOWS CONFIGS
+│   ├── wezterm/           Terminal + themes
+│   ├── fluent-search/     App launcher
+│   ├── onecommander/      File manager
+│   ├── ohmyposh/          Prompt theme
+│   └── windows-apps/      VSCode, Vimium, etc
+│
+└── 📚 DOCUMENTATION
+    ├── README.md          This file
+    ├── STOW-USAGE.md      Quick reference
+    └── LICENSE            MIT License
 ```
 
 ---
@@ -58,55 +70,48 @@ sudo pacman -S stow    # Arch
 
 ```bash
 # 1. Clone this repository
-git clone git@github.com:AnveshJarabani/dotfiles.git ~/dotfiles
-
-# 2. Navigate to dotfiles
+git clone git@github-p:AnveshJarabani/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 
-# 3. Install all configs
-stow nvim tmux zsh colors lazygit starship scripts
+# 2. Install configs (choose your OS)
 
-# Or install selectively
-stow nvim      # Just Neovim
-stow tmux zsh  # Just terminal configs
-```
+# Linux - All configs
+stow nvim tmux zsh p10k colors lazygit lazydocker starship btop yazi ranger neofetch aicommit gitignore scripts
 
-### Verification
+# Windows - All configs  
+stow wezterm fluent-search onecommander ohmyposh windows-apps
 
-```bash
-# Check that symlinks were created
-ls -la ~/.config/nvim    # Should point to ~/dotfiles/nvim/.config/nvim
-ls -la ~/.tmux.conf      # Should point to ~/dotfiles/tmux/.tmux.conf
-ls -la ~/.zshrc          # Should point to ~/dotfiles/zsh/.zshrc
+# Or install everything at once!
+stow */
 ```
 
 ---
 
 ## 🎮 Usage
 
-### Install a Config Package
+### Install a Package
 
 ```bash
 cd ~/dotfiles
 stow nvim              # Install nvim config
 ```
 
-### Remove a Config Package
+### Remove a Package
 
 ```bash
 stow -D nvim           # Remove nvim symlinks
 ```
 
-### Reinstall (Refresh) a Config
+### Reinstall (Refresh)
 
 ```bash
 stow -R nvim           # Remove and recreate symlinks
 ```
 
-### Dry Run (Preview Changes)
+### Dry Run (Preview)
 
 ```bash
-stow -n nvim           # See what would happen without doing it
+stow -n nvim           # See what would happen
 ```
 
 ### Verbose Output
@@ -123,40 +128,37 @@ stow */                # Stow all packages
 
 ---
 
-## 📦 What's Included
+## 📦 Package Details
 
-### 📝 Neovim
-- **Distribution:** LazyVim
-- **Plugins:** 100+ plugins for development
-- **Features:** LSP, autocomplete, git integration, file explorer
-- **Custom keymaps:** GitHub code search, telescope, lazygit integration
+### 🐧 Linux Packages
 
-### 🖥️ Tmux
-- **Prefix:** `Ctrl+N`
-- **Mode:** Vi-mode copy/paste
-- **Plugins:** tmux-open, tmux-yank, sessionx, tmux-jump
-- **Features:** Mouse support, 2.5M line history
+| Package | Description | Key Features |
+|---------|-------------|--------------|
+| **nvim** | Neovim config | LazyVim, 100+ plugins, LSP, GitHub search |
+| **tmux** | Terminal multiplexer | Vi-mode, sessionx, 2.5M line history |
+| **zsh** | Shell config | Oh-My-Zsh, P10k, custom aliases |
+| **p10k** | Powerlevel10k | Custom prompt theme |
+| **colors** | Terminal colors | LS_COLORS, syntax highlighting |
+| **lazygit** | Git TUI | Catppuccin theme, nerd fonts |
+| **lazydocker** | Docker TUI | Container management |
+| **starship** | Fast prompt | Git status, language versions |
+| **btop** | System monitor | Beautiful resource monitor |
+| **yazi** | File manager | Modern TUI file manager |
+| **ranger** | File manager | Vi-like file manager |
+| **neofetch** | System info | Fancy system information |
+| **aicommit** | AI commits | OpenAI-powered commit messages |
+| **gitignore** | Git ignore | Global gitignore patterns |
+| **scripts** | Custom scripts | Utility scripts |
 
-### 🐚 Zsh
-- **Framework:** Oh-My-Zsh
-- **Plugins:** git, z, fzf, syntax-highlighting, autosuggestions
-- **Theme:** Powerlevel10k
-- **Features:** Custom functions, aliases, key bindings
+### 🪟 Windows Packages
 
-### 🎨 Colors
-- **LS_COLORS:** Vivid 256-color scheme
-- **Syntax highlighting:** Enhanced command coloring
-- **Man pages:** Colorized documentation
-- **Grep:** Bright orange highlights
-
-### 🦥 LazyGit
-- **Theme:** Catppuccin Macchiato
-- **Features:** Nerd fonts, file icons
-- **Keybindings:** Custom navigation
-
-### ⭐ Starship
-- **Prompt:** Fast, customizable shell prompt
-- **Features:** Git status, directory, language versions
+| Package | Description | Key Features |
+|---------|-------------|--------------|
+| **wezterm** | Terminal | GPU-accelerated, Lua config |
+| **fluent-search** | App launcher | Alfred/Spotlight for Windows |
+| **onecommander** | File manager | Dual-pane file manager |
+| **ohmyposh** | Prompt | PowerShell/Terminal prompt |
+| **windows-apps** | App configs | VSCode, Vimium, etc |
 
 ---
 
@@ -193,11 +195,10 @@ git pull
 ```bash
 # 1. Create package directory
 cd ~/dotfiles
-mkdir -p myapp
-
-# 2. Mirror the home directory structure
 mkdir -p myapp/.config/myapp
-cp ~/.config/myapp/* myapp/.config/myapp/
+
+# 2. Copy your config
+cp -r ~/.config/myapp/* myapp/.config/myapp/
 
 # 3. Stow it
 stow myapp
@@ -214,8 +215,6 @@ git push
 
 ### Conflicts During Stow
 
-If stow reports conflicts:
-
 ```bash
 # Option 1: Backup existing files
 mv ~/.config/nvim ~/.config/nvim.backup
@@ -230,14 +229,12 @@ git checkout .  # Revert if needed
 ### Broken Symlinks
 
 ```bash
-# Remove broken links
+# Remove and recreate
 stow -D nvim
-
-# Recreate them
 stow nvim
 ```
 
-### Check What Stow Would Do
+### Preview Changes
 
 ```bash
 # Dry run with verbose output
@@ -246,15 +243,14 @@ stow -nv nvim
 
 ---
 
-## 📚 Key Bindings Reference
+## 📚 Key Bindings
 
 ### Tmux (Prefix = Ctrl+N)
 
 | Binding | Action |
 |---------|--------|
 | `Ctrl+\` | Enter copy mode |
-| `Ctrl+O` | Session manager (sessionx) |
-| `Prefix t` | New window |
+| `Ctrl+O` | Session manager |
 | `Alt+I/K` | Switch sessions |
 
 ### Neovim
@@ -271,25 +267,11 @@ stow -nv nvim
 ## 🎯 Design Principles
 
 1. **Modularity** - Each tool has its own stow package
-2. **Portability** - Works on any Linux machine
+2. **Portability** - Works on any Linux/Windows machine
 3. **Safety** - Stow won't overwrite existing files
 4. **Simplicity** - One command to install everything
 5. **Git-friendly** - All configs version controlled
-
----
-
-## 🤝 Contributing
-
-This is my personal dotfiles repo, but feel free to:
-- Fork it for your own use
-- Submit issues if you find bugs
-- Suggest improvements via PRs
-
----
-
-## 📝 License
-
-MIT License - See [LICENSE](LICENSE) file
+6. **Cross-platform** - Same workflow on Windows + Linux
 
 ---
 
@@ -299,6 +281,7 @@ MIT License - See [LICENSE](LICENSE) file
 - [LazyVim Documentation](https://www.lazyvim.org/)
 - [Oh-My-Zsh](https://ohmyz.sh/)
 - [Tmux Guide](https://github.com/tmux/tmux/wiki)
+- [Wezterm](https://wezfurlong.org/wezterm/)
 
 ---
 
@@ -309,53 +292,3 @@ MIT License - See [LICENSE](LICENSE) file
 ⭐ Star this repo if you find it useful!
 
 </div>
-
----
-
-## 🪟 Windows Configs
-
-### 🖥️ Wezterm
-- **Location:** `.config/wezterm/`
-- **Theme:** Cyberdream
-- **Features:** GPU-accelerated terminal for Windows
-
-### 🔍 Fluent Search
-- **Location:** `PERSONAL/PRIVATE/CUSTOMIZATIONS/fluent_search/`
-- **Purpose:** Windows app launcher (Alfred/Spotlight alternative)
-- **Includes:** Prioritization, Quick menu, Search tags, Processes, etc.
-
-### 📂 OneCommander
-- **Location:** `PERSONAL/PRIVATE/AJ_view_one_commander.json`
-- **Purpose:** Dual-pane file manager for Windows
-
-### ⭐ Oh-My-Posh
-- **Location:** `PERSONAL/PRIVATE/azure-aj.omp.json`
-- **Purpose:** Prompt theme for Windows PowerShell/Terminal
-
-### 🎨 Windows Apps
-- **Location:** `PERSONAL/PRIVATE/CUSTOMIZATIONS/`
-- **Includes:** Various Windows application configs
-
----
-
-## 🔄 Cross-Platform Support
-
-This repo now includes configs for both **Linux** and **Windows**:
-
-### On Linux (WSL):
-```bash
-cd ~/dotfiles
-stow nvim tmux zsh colors lazygit starship scripts
-```
-
-### On Windows:
-```powershell
-cd ~/dotfiles
-stow wezterm fluent-search onecommander ohmyposh windows-apps
-```
-
-### Both:
-```bash
-stow */  # Install everything!
-```
-

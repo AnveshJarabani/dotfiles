@@ -1,0 +1,17 @@
+[[plugin.deps]]
+use = "dedukun/bookmarks"
+rev = "fbb7c00"
+hash = "1d231a808d3344546380df33daf43e91"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:jump-to-char"
+rev = "b886025"
+hash = "d2f04875bbd4ed3dd5696e8c4b094fde"
+
+[[plugin.deps]]
+use = "boydaihungst/gvfs"
+rev = "f07b496"
+hash = "162bf7326809fb2b831d7fac7525b067"
+
+[flavor]
+deps = []

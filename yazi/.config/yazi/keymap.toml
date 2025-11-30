@@ -1,0 +1,77 @@
+[[mgr.prepend_keymap]]
+on = ["g", "i"]
+run = "plugin lazygit"
+desc = "run lazygit"
+[[mgr.prepend_keymap]]
+on = ["<C-b>"]
+run = "plugin bookmarks -- save"
+desc = "Save current position as a bookmark"
+
+[[mgr.prepend_keymap]]
+on = ["b"]
+run = "plugin bookmarks -- jump"
+desc = "Jump to a bookmark"
+
+[[mgr.prepend_keymap]]
+on = ["u", "d"]
+run = "plugin bookmarks -- delete"
+desc = "Delete a bookmark"
+
+[[mgr.prepend_keymap]]
+on = ["u", "D"]
+run = "plugin bookmarks -- delete_all"
+desc = "Delete all bookmarks"
+
+[[mgr.prepend_keymap]]
+on = ["u", "m"]
+run = "plugin bookmarks -- modify"
+desc = "modify key bind to hoverd path"
+
+[[mgr.prepend_keymap]]
+on = "j"
+run = "plugin jump-to-char"
+desc = "Jump to char"
+[[mgr.prepend_keymap]]
+on = ["M", "m"]
+run = "plugin gvfs -- select-then-mount --jump"
+desc = "Select device to mount and jump to its mount point"
+
+[[mgr.prepend_keymap]]
+on = ["M", "R"]
+run = "plugin gvfs -- remount-current-cwd-device"
+desc = "Remount device under cwd"
+
+[[mgr.prepend_keymap]]
+on = ["M", "u"]
+run = "plugin gvfs -- select-then-unmount --eject"
+desc = "Select device then eject"
+
+[[mgr.prepend_keymap]]
+on = ["M", "U"]
+run = "plugin gvfs -- select-then-unmount --eject --force"
+desc = "Select device then force to eject/unmount"
+
+[[mgr.prepend_keymap]]
+on = ["M", "a"]
+run = "plugin gvfs -- add-mount"
+desc = "Add a GVFS mount URI"
+
+[[mgr.prepend_keymap]]
+on = ["M", "e"]
+run = "plugin gvfs -- edit-mount"
+desc = "Edit a GVFS mount URI"
+
+[[mgr.prepend_keymap]]
+on = ["M", "r"]
+run = "plugin gvfs -- remove-mount"
+desc = "Remove a GVFS mount URI"
+
+[[mgr.prepend_keymap]]
+on = ["g", "m"]
+run = "plugin gvfs -- jump-to-device --automount"
+desc = "Automount then select device to jump to its mount point"
+
+[[mgr.prepend_keymap]]
+on = ["`", "`"]
+run = "plugin gvfs -- jump-back-prev-cwd"
+desc = "Jump back to the position before jumped to device"
