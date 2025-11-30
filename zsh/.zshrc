@@ -33,11 +33,11 @@ export SPACECTL_SKIP_STACK_PROMPT=true
 #FOR USING VERTEX AI MODEL 
 export GOOGLE_GENAI_USE_VERTEXAI=true
 export GOOGLE_CLOUD_PROJECT='wsh-dev-vertex-wsky'
-export JIRA_API_TOKEN='ATATT3xFfGF0yaWn91tQl_bn6oc3LZbZLg4rcnRzXN-K5SXtV02XiLls2UPP8vebNWFMdeM4J2HnL1ovq45ROcT2Q49jc_FLKrpXmB6JMs4bsMpxNWgueJXWQQyl5UStfXwPGXAKM9rfkw_oTfq4UusjND4eIBWuNFPbAZgdkw3t8fT9959Hi0w=3DAF90F0'
+export JIRA_API_TOKEN=$(pass work/jira-api-token)
 export GOOGLE_CLOUD_LOCATION='us-central1'
 # enable ftp mount - 
-# mount -t cifs //nuc3.local/wd2tb1/DOCUMENTS ~/DOCS_WD2TB1 -o username=aj,password=qtin 2>/dev/null
-# mount -t cifs //nuc3.local/wd6tb ~/wd6tb -o username=aj,password=qtin 2>/dev/null
+# mount -t cifs //nuc3.local/wd2tb1/DOCUMENTS ~/DOCS_WD2TB1 -o username=aj,password=$(pass mount/nuc3-cifs) 2>/dev/null
+# mount -t cifs //nuc3.local/wd6tb ~/wd6tb -o username=aj,password=$(pass mount/nuc3-cifs) 2>/dev/null
 
 # Enable colors and change prompt:
 autoload -U colors && colors
