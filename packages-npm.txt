@@ -1,0 +1,7 @@
+@bitwarden/cli
+@dataform/cli
+@github/copilot
+@google/gemini-cli
+corepack
+markdownlint-cli2
+wsl-open
