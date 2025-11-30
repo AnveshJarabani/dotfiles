@@ -1,0 +1,27 @@
+#!/bin/bash
+# Gitmoji-style commit message generator using Copilot CLI with diverse emojis
+
+echo "🎨 Generating commit message with diverse emojis..."
+
+# Get git diff
+git_diff=$(git diff --staged)
+
+if [ -z "$git_diff" ]; then
+  echo "❌ No staged changes found. Stage your changes first with 'git add'"
+  exit 1
+fi
+
+# Ask Copilot CLI for commit message with specific emoji instructions
+copilot ask "Generate a git commit message for these changes. Use DIVERSE and CREATIVE emojis throughout - not just ✨🚀🎉. Pick from categories like:
+- Animals: 🐛🦋🐝🦄🐉🦖🐧🦜🦩🦚
+- Food: 🍕🍔🌮🍜🍱🧁🍰🥧
+- Objects: 🎯🎪🎨🎭🎬🎸🎺🎻🎲🧩🔮
+- Nature: 🌈🌟💫⚡��💥✨🌸🌺🌻🌷
+- Tech: 🔧🔨⚙️🛠️💻📱⌨️🖥️
+- Sports: ⚽🏀🏈⚾🎾🏐🎱🏓
+- Symbols: 💯🎁🎈🎊🏆🥇🏅
+
+Make it fun, creative, and use at least 5-10 different emojis. Format as conventional commit with type.
+
+Staged changes:
+$git_diff"
