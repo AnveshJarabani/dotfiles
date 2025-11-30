@@ -133,7 +133,8 @@ alias cz="code \$(fzf)"
 alias splan="spacectl stack local-preview"
 alias sauth="spacectl profile login  --endpoint https://wellsky.app.us.spacelift.io"
 alias jl="jira sprint  list --current -a$(jira me)"
-alias sftp="sshfs -o IdentityFile=~/.ssh/sftpgo_wsl -p 2022 wsl@sftp.local:/ /mnt/sftpgo"
+# SSH aliases using pass for key management
+alias sftp="sshfs -o IdentityFile=<(pass ssh/sftpgo_wsl) -p 2022 wsl@sftp.local:/ /mnt/sftpgo"
 alias unmount="fusermount -u /mnt/sftpgo"
 alias b="buku --deep -S"
 alias zn='/root/PERSONAL/PRIVATE/CUSTOMIZATIONS/zoxide_openfiles_nvim.sh'
@@ -177,10 +178,11 @@ gmprune() {
   git pull
   gitprune
 }
-alias nuc3="ssh -i ~/.ssh/nuc3 root@192.168.1.103"
-alias nuc2="ssh -i ~/.ssh/nuc2 root@192.168.1.102"
-alias nuc4="ssh -i ~/.ssh/nuc4 root@192.168.1.104"
-alias px="ssh -i ~/.ssh/px root@192.168.1.105"
+# SSH server aliases using pass for SSH keys
+alias nuc3="ssh -i <(pass ssh/nuc3) root@192.168.1.103"
+alias nuc2="ssh -i <(pass ssh/nuc2) root@192.168.1.102"
+alias nuc4="ssh -i <(pass ssh/nuc4) root@192.168.1.104"
+alias px="ssh -i <(pass ssh/px) root@192.168.1.105"
 
 alias ghcs="gh copilot suggest"
 alias gsearch="gh search code --owner mediwareinc"
@@ -324,4 +326,7 @@ sync_edge_bookmarks() {
 # Disable bracketed paste mode
 # unset zle_bracketed_paste
 export BIGQUERY_PROJECT="wsh-dev-analytics-wsky"
+
+# GPG_TTY required for pass/gpg passphrase prompts to work
+export GPG_TTY=$(tty)
 
