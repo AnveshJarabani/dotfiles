@@ -12,7 +12,7 @@
 ```bash
 # Create private GitHub repo for password store
 cd ~/.password-store
-git remote add origin git@github-p:AnveshJarabani/password-store.git
+git remote add origin git@github.com:AnveshJarabani/password-store.git
 git push -u origin main
 ```
 
@@ -30,7 +30,7 @@ gpg --edit-key AF1A74D1247ACAB69C99182612AB229CE64A58C5
   quit
 
 # 3. Clone password store
-git clone git@github-p:AnveshJarabani/password-store.git ~/.password-store
+git clone git@github.com:AnveshJarabani/password-store.git ~/.password-store
 
 # 4. Done! Test it
 pass
@@ -334,7 +334,7 @@ pass api/aws-config
 - [ ] Install `pass` and `gpg`
 - [ ] Import GPG key: `gpg --import ~/gpg-backup-personal.key`
 - [ ] Trust key: `gpg --edit-key ... trust 5`
-- [ ] Clone password store: `git clone git@github-p:AnveshJarabani/password-store.git ~/.password-store`
+- [ ] Clone password store: `git clone git@github.com:AnveshJarabani/password-store.git ~/.password-store`
 - [ ] Test: `pass work/jira-api-token`
 - [ ] Restore SSH keys: Run restore script
 - [ ] Set permissions: `chmod 600 ~/.ssh/*`
@@ -366,7 +366,7 @@ echo "Setting ultimate trust..."
 gpg --edit-key AF1A74D1247ACAB69C99182612AB229CE64A58C5 trust quit
 
 # Clone password store
-git clone git@github-p:AnveshJarabani/password-store.git ~/.password-store
+git clone git@github.com:AnveshJarabani/password-store.git ~/.password-store
 
 # Restore SSH
 mkdir -p ~/.ssh && chmod 700 ~/.ssh

@@ -241,11 +241,11 @@ Install the pre-commit hook from this repo:
 ```bash
 # On machine 1:
 cd ~/.password-store
-git remote add origin git@github-p:AnveshJarabani/password-store.git
+git remote add origin git@github.com:AnveshJarabani/password-store.git
 git push -u origin main
 
 # On machine 2:
-pass git clone git@github-p:AnveshJarabani/password-store.git ~/.password-store
+pass git clone git@github.com:AnveshJarabani/password-store.git ~/.password-store
 ```
 
 ### Option 2: Manual Transfer

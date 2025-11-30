@@ -100,7 +100,7 @@ Your pass store is git-enabled. To sync:
 ### On This Machine
 ```bash
 cd ~/.password-store
-git remote add origin git@github-p:AnveshJarabani/password-store.git
+git remote add origin git@github.com:AnveshJarabani/password-store.git
 git push -u origin main
 ```
 
@@ -111,7 +111,7 @@ scp your-server:~/gpg-backup.key ~/
 gpg --import ~/gpg-backup.key
 
 # 2. Clone password store
-git clone git@github-p:AnveshJarabani/password-store.git ~/.password-store
+git clone git@github.com:AnveshJarabani/password-store.git ~/.password-store
 
 # 3. Done! Secrets available
 pass
