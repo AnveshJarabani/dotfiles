@@ -99,6 +99,7 @@ source ~/PERSONAL/PRIVATE/CUSTOMIZATIONS/fzf-tab-config.zsh
 source ~/PERSONAL/PRIVATE/CUSTOMIZATIONS/zoxide-config.zsh
 source ~/PERSONAL/PRIVATE/CUSTOMIZATIONS/fzf-config.zsh
 source ~/PERSONAL/PRIVATE/CUSTOMIZATIONS/fzf-aliases.zsh
+source ~/PERSONAL/PRIVATE/CUSTOMIZATIONS/colors-config.zsh
 alias src="source ~/.zshrc"
 alias python=python3.13
 alias z=zi
@@ -323,5 +324,4 @@ sync_edge_bookmarks() {
 # Disable bracketed paste mode
 # unset zle_bracketed_paste
 export BIGQUERY_PROJECT="wsh-dev-analytics-wsky"
-source ~/PERSONAL/PRIVATE/CUSTOMIZATIONS/colors-config.zsh
 
