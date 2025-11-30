@@ -1,0 +1,17 @@
+{
+	"name": "Vimium C",
+	"@time": "7/1/2024, 5:00:36 PM",
+	"time": 1719871236688,
+	"environment": {
+		"extension": "1.99.994",
+		"platform": "win",
+		"chromium": 126
+	},
+	"keyLayout": 2,
+	"keyMappings": [
+		"#!no-check",
+		"mapkey e u",
+		""
+	],
+	"vimSync": true
+}

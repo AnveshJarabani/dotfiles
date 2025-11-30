@@ -1,0 +1,183 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "auto_upgrade": true,
+  "blocks": [
+    {
+      "alignment": "left",
+      "segments": [
+        {
+          "background": "#e600d3",
+          "foreground": "#000000",
+          "leading_diamond": "\ue0c2 ",
+          "trailing_diamond": "\ue0b0",
+          "properties": {
+            "style": "unique",
+            "home_icon": "\uf015 ",
+            "folder_separator_icon": "\u23fd",
+            "mapped_locations": {
+              "C:\\Users\\AnveshJarabani\\Downloads\\*": "\uf0ed "
+            }
+          },
+          "style": "diamond",
+          "template": " {{ .Path }} \uf07c ",
+          "type": "path"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "right",
+      "segments": [
+        {
+          "background": "#44ff05",
+          "foreground": "#000000",
+          "style": "powerline",
+          "invert_powerline": true,
+          "powerline_symbol": "\ue0b2",
+          "template": "\ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+          "type": "python"
+        },
+        {
+          "background": "#ff7300",
+          "foreground": "#000000",
+          "style": "powerline",
+          "invert_powerline": true,
+          "powerline_symbol": "\ue0b2",
+          "template": "\uf487 {{ if .Error }}{{ .Error }}{{ else }}{{ .Venv }}{{ end }}",
+          "type": "python"
+        },
+        {
+          "background": "#fb25c2",
+          "foreground": "#000000",
+          "style": "diamond",
+          "invert_powerline": true,
+          "trailing_diamond": "\ue0c0  ",
+          "leading_diamond": "\ue0b2",
+          "template": "\uf2be {{ if .SSHSession }}\ueba9{{ end }}{{ .UserName }} \uf6c4 {{ .HostName }} ",
+          "type": "session"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "background": "#3474f6",
+          "foreground": "#ffffff",
+          "leading_diamond": "\ue0c2 ",
+          "properties": {
+            "macos": "\uf179 ",
+            "ubuntu": "\uf31b ",
+            "windows": "\ue62a "
+          },
+          "style": "diamond",
+          "template": " {{.Icon}}",
+          "type": "os"
+        },
+        {
+          "background": "#f6ff00",
+          "background_templates": [
+            "{{ if or (.Working.Changed) (.Staging.Changed) }}#FF9248{{ end }}",
+            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#ff4500{{ end }}",
+            "{{ if gt .Ahead 0 }}#B388FF{{ end }}",
+            "{{ if gt .Behind 0 }}#B388FF{{ end }}"
+          ],
+          "foreground": "#000000",
+          "powerline_symbol": "\ue0b0",
+          "properties": {
+            "fetch_stash_count": true,
+            "fetch_status": true,
+            "fetch_upstream_icon": true
+          },
+          "style": "powerline",
+          "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \uf0c7 {{ .StashCount }}{{ end }} ",
+          "type": "git"
+        },
+        {
+          "background": "#ff6a00",
+          "foreground": "#000000",
+          "type": "text",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "template": " \uf603 {{ .PromptCount }} "
+        },
+        {
+          "background": "#f1184c",
+          "background_templates": ["{{ if eq .Code 0 }}#15d535{{ end }}"],
+          "foreground": "#000000",
+          "properties": {
+            "always_enabled": true
+          },
+          "style": "diamond",
+          "template": " \ue23a {{ if eq .Code 0 }}\uf00c{{ else }}\uf00d{{ end }} <#66CDAA>\ue285</><#76EEC6>\ue285</><foreground>\ue285</>",
+          "trailing_diamond": "\ue0b0",
+          "type": "text"
+        }
+      ],
+      "type": "prompt"
+    },
+
+    {
+      "alignment": "right",
+      "filler": "--",
+      "segments": [
+        {
+          "background": "#4bb2f2",
+          "foreground": "#000000",
+          "style": "diamond",
+          "powerline_symbol": "\ue0b2",
+          "leading_diamond": "\ue0b2",
+          "template": "<foreground>\ue200</><#76EEC6>\ue200</></><#66CDAA>\ue200</> \uf68c {{ .Name }} ",
+          "type": "shell"
+        },
+        {
+          "background": "#b12bfe",
+          "foreground": "#000000",
+          "style": "powerline",
+          "invert_powerline": true,
+          "powerline_symbol": "\ue0b2",
+          "properties": {
+            "style": "roundrock",
+            "threshold": 0
+          },
+          "template": " \ue315 {{ .FormattedMs }} ",
+          "type": "executiontime"
+        },
+        {
+          "background": "#ffe600",
+          "foreground": "#000000",
+          "style": "powerline",
+          "invert_powerline": true,
+          "powerline_symbol": "\ue0b2",
+          "template": " \uf2db {{ (div ((sub .PhysicalTotalMemory .PhysicalFreeMemory)|float64) 1000000000.0) }}/{{ (div .PhysicalTotalMemory 1068786176.0) }}GB ",
+          "type": "sysinfo"
+        },
+        {
+          "background": "#e79d89",
+          "background_templates": [
+            "{{if eq \"Charging\" .State.String}}#40c4ff{{end}}",
+            "{{if eq \"Discharging\" .State.String}}#ff5722{{end}}",
+            "{{if eq \"Full\" .State.String}}#4caf50{{end}}"
+          ],
+          "foreground": "#000000",
+          "properties": {
+            "charged_icon": "\uf584 ",
+            "charging_icon": "\uf583 ",
+            "discharging_icon": "\uf586 "
+          },
+          "style": "diamond",
+          "invert_powerline": true,
+          "trailing_diamond": "\ue0c0  ",
+          "template": " {{ if not .Error }}{{ .Icon }}{{ .Percentage }}{{ end }}{{ .Error }}\uf295  ",
+          "type": "battery"
+        }
+      ],
+      "type": "rprompt"
+    }
+  ],
+  "console_title_template": "{{ .Shell }} in {{ .Folder }}",
+  "final_space": true,
+  "version": 2
+}

@@ -309,3 +309,53 @@ MIT License - See [LICENSE](LICENSE) file
 ⭐ Star this repo if you find it useful!
 
 </div>
+
+---
+
+## 🪟 Windows Configs
+
+### 🖥️ Wezterm
+- **Location:** `.config/wezterm/`
+- **Theme:** Cyberdream
+- **Features:** GPU-accelerated terminal for Windows
+
+### 🔍 Fluent Search
+- **Location:** `PERSONAL/PRIVATE/CUSTOMIZATIONS/fluent_search/`
+- **Purpose:** Windows app launcher (Alfred/Spotlight alternative)
+- **Includes:** Prioritization, Quick menu, Search tags, Processes, etc.
+
+### 📂 OneCommander
+- **Location:** `PERSONAL/PRIVATE/AJ_view_one_commander.json`
+- **Purpose:** Dual-pane file manager for Windows
+
+### ⭐ Oh-My-Posh
+- **Location:** `PERSONAL/PRIVATE/azure-aj.omp.json`
+- **Purpose:** Prompt theme for Windows PowerShell/Terminal
+
+### 🎨 Windows Apps
+- **Location:** `PERSONAL/PRIVATE/CUSTOMIZATIONS/`
+- **Includes:** Various Windows application configs
+
+---
+
+## 🔄 Cross-Platform Support
+
+This repo now includes configs for both **Linux** and **Windows**:
+
+### On Linux (WSL):
+```bash
+cd ~/dotfiles
+stow nvim tmux zsh colors lazygit starship scripts
+```
+
+### On Windows:
+```powershell
+cd ~/dotfiles
+stow wezterm fluent-search onecommander ohmyposh windows-apps
+```
+
+### Both:
+```bash
+stow */  # Install everything!
+```
+

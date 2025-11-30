@@ -1,0 +1,23 @@
+{
+  "folders": [
+    {
+      "path": "C:/Users/sathv/Downloads/LEETCODE-PYTHON"
+    },
+    {
+      "path": "C:/Users/sathv/Downloads/PRIVATE"
+    }
+  ],
+  "settings": {},
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Python: Current File",
+        "type": "python",
+        "request": "launch",
+        "program": "${file}",
+        "console": "internalConsole"
+      }
+    ]
+  }
+}

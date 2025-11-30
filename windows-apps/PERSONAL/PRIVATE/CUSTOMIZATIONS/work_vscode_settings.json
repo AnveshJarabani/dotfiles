@@ -1,0 +1,310 @@
+{
+  "security.workspace.trust.untrustedFiles": "open",
+  "python.defaultInterpreterPath": "C:\\Users\\anveshjarabani\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+  "python.envFile": "${workspaceFolder}/.vscode/shared.env",
+  "explorer.autoReveal": false,
+  "scm.autoReveal": false,
+  "debug.openDebug": "neverOpen",
+  "debug.internalConsoleOptions": "neverOpen",
+  "remote.SSH.configFile": "C:\\Users\\anveshjarabani\\.ssh\\config",
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "workbench.startupEditor": "none",
+  "workbench.tree.indent": 12,
+  "workbench.tree.renderIndentGuides": "always",
+  "editor.formatOnPaste": true,
+  "editor.fontLigatures": true,
+  "editor.fontSize": 14,
+  "editor.renderWhitespace": "none",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "vs-kubernetes": {
+    "vscode-kubernetes.minikube-path.windows": "C:\\Users\\ajarabani\\.vs-kubernetes\\tools\\minikube\\windows-amd64\\minikube.exe",
+    "vscode-kubernetes.helm-path.windows": "C:\\Users\\ajarabani\\.vs-kubernetes\\tools\\helm\\windows-amd64\\helm.exe",
+    "vscode-kubernetes.helm-path-windows": "C:\\Users\\AnveshJarabani\\.vs-kubernetes\\tools\\helm\\windows-amd64\\helm.exe",
+    "vscode-kubernetes.minikube-path-windows": "C:\\Users\\AnveshJarabani\\.vs-kubernetes\\tools\\minikube\\windows-amd64\\minikube.exe",
+    "vs-kubernetes.minikube-show-information-expiration": "2024-05-15T20:03:29.405Z"
+  },
+  "tabnine.experimentalAutoImports": true,
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "workbench.editorAssociations": {
+    "*.docx": "default"
+  },
+  "background.fullscreen": {
+    "images": [
+      "https://images.hdqwalls.com/wallpapers/pattern-square-texture-4k-gn.jpg"
+    ],
+    "opacity": 0.9,
+    "size": "cover",
+    "position": "center",
+    "interval": 300
+  },
+  "git.enableSmartCommit": true,
+  "vscode_custom_css.imports": [
+    "file:///C:/users/AnveshJarabani/private/customizations/custom.css"
+  ],
+  "workbench.colorCustomizations": {
+    "foreground": "#00ffa6",
+    "editor.foreground": "#6ae5a4",
+    "editor.background": "#0f0f0f",
+    "editor.lineHighlightBackground": "#05a04645",
+    "editor.lineHighlightBorder": "#a5098efe",
+    "editor.hoverHighlightBackground": "#1cad8488",
+    "editor.wordHighlightTextBorder": "#fb00ff00",
+    "editor.wordHighlightBackground": "#01e87184",
+    "editor.selectionBackground": "#6b0295",
+    "debugExceptionWidget.background": "#74009a3e",
+    "debugExceptionWidget.border": "#eeff00",
+    "editorWarning.foreground": "#ffff00",
+    "statusBar.foreground": "#81fa00cc",
+    "statusBar.border": "#00ff1a7a",
+    "statusBar.background": "#0f0f0f",
+    "activityBar.inactiveForeground": "#81fa00a8",
+    "activityBar.activeBorder": "#fafa00",
+    "activityBar.background": "#0f0f0f",
+    "activityBar.foreground": "#81fa00",
+    "activityBar.border": "#00ff1a7a",
+    "editorLineNumber.foreground": "#3cff0095",
+    "editorLineNumber.activeForeground": "#d9ff00",
+    "debugConsole.errorForeground": "#fbff00",
+    "debugConsole.infoForeground": "#00ff00",
+    "debugConsole.sourceForeground": "#ffaa00",
+    "debugConsole.warningForeground": "#00fff7",
+    "debugView.exceptionLabelForeground": "#eaff00",
+    "editorGutter.background": "#0f0f0f",
+    "terminal.foreground": "#6ae5a4",
+    "scrollbarSlider.background": "#80b505b5",
+    "scrollbarSlider.activeBackground": "#aef702",
+    "scrollbarSlider.hoverBackground": "#aef702",
+    "debugView.stateLabelBackground": "#aef702",
+    "debugView.stateLabelForeground": "#c202f7",
+    "debugView.valueChangedHighlight": "#0037ff",
+    "debugView.exceptionLabelBackground": "#e1ff00",
+    "debugTokenExpression.string": "#aef702",
+    "debugTokenExpression.number": "#f2ff00",
+    "debugTokenExpression.error": "#d8f900",
+    "debugTokenExpression.value": "#00ff99",
+    "debugTokenExpression.boolean": "#00f7ff",
+    "debugTokenExpression.name": "#ffa601",
+    "tab.inactiveForeground": "#ffff00b2",
+    "tab.inactiveBackground": "#0f0f0f",
+    "tab.border": "#00ff1a7a",
+    "tab.activeBorderTop": "#ff9500",
+    "titleBar.border": "#00ff1a7a",
+    "titleBar.activeForeground": "#81fa00",
+    "titleBar.activeBackground": "#0f0f0f",
+    "tab.activeForeground": "#09ff00",
+    "tab.activeBackground": "#015042",
+    "editorGroupHeader.tabsBackground": "#0f0f0f",
+    "panelTitle.activeForeground": "#81fa00",
+    "panelTitle.inactiveForeground": "#81fa00a2",
+    "panelInput.border": "#cc00ff",
+    "panel.border": "#00ff1a7a",
+    "panelTitle.activeBorder": "#00ff37",
+    "sideBar.background": "#0f0f0f",
+    "sideBar.foreground": "#6ae5a4",
+    "sideBar.border": "#00ff1a7a",
+    "tree.indentGuidesStroke": "#77ff00",
+    "tree.inactiveIndentGuidesStroke": "#8b07b3"
+  },
+  "editor.fontWeight": "bold",
+  "editor.guides.bracketPairs": "active",
+  "editor.guides.highlightActiveBracketPair": true,
+  "debug.console.fontFamily": "Fira Code iscript",
+  "debug.console.fontSize": 16,
+  "terminal.integrated.defaultLocation": "editor",
+  "terminal.integrated.fontFamily": "CascadiaCode Nerd Font, MesloLGM Nerd Font",
+  "terminal.integrated.fontSize": 16,
+  "terminal.integrated.fontWeight": "bold",
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.cursorWidth": 3,
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.lineHeight": 1.2,
+  "terminal.integrated.smoothScrolling": true,
+  "terminal.integrated.fastScrollSensitivity": 100,
+  "terminal.integrated.enableImages": true,
+  "editor.tokenColorCustomizations": {
+    "comments": "#eeff00",
+    "textMateRules": [
+      {
+        "scope": [
+          "keyword.control.flow.python",
+          "keyword.control.conditional.python",
+          "keyword.control.import.python",
+          "meta.control.python",
+          "meta.function-call.python",
+          "keyword.operator.logical.python",
+          "storage.type.function.python",
+          "comment.line.number-sign.python",
+          "type.builtin.function.python"
+        ],
+        "settings": {
+          "fontStyle": "italic bold",
+          "foreground": "#f553a7"
+        }
+      },
+      {
+        "scope": ["source.python", "source.sql"],
+        "settings": {
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": [
+          "comment.line.number-sign.python",
+          "string.quoted.docstring.multi.python"
+        ],
+        "settings": {
+          "foreground": "#eeff00"
+        }
+      },
+      {
+        "scope": ["keyword.operator.comparison.python"],
+        "settings": {
+          "foreground": "#f553a7"
+        }
+      },
+      {
+        "scope": [
+          "meta.function-call.generic.python",
+          "entity.name.function.python"
+        ],
+        "settings": {
+          "foreground": "#aff522cd"
+        }
+      },
+      {
+        "scope": [
+          "punctuation.separator",
+          "punctuation.section.function.begin.python",
+          "punctuation.python",
+          "punctuation.definition.string"
+        ],
+        "settings": {
+          "foreground": "#00ff04"
+        }
+      },
+      {
+        "scope": [
+          "constant.language.python",
+          "constant.numeric.float.python",
+          "constant.numeric.dec.python",
+          "constant.string.python"
+        ],
+        "settings": {
+          "foreground": "#cf0eff"
+        }
+      },
+      {
+        "scope": ["string.quoted.single.python"],
+        "settings": {
+          "foreground": "#3ece9c"
+        }
+      }
+    ]
+  },
+  "editor.semanticTokenColorCustomizations": {
+    "enabled": true,
+    "rules": {
+      "variable": "#00bbff",
+      "module": "#7be634d0",
+      "function": "#ffd900",
+      "parameter": "#00ffea"
+    }
+  },
+  "editor.fontFamily": "Fira Code iscript",
+  "explorer.confirmDelete": false,
+  "editor.formatOnSave": true,
+  "debug.console.wordWrap": true,
+  "debug.enableStatusBarColor": false,
+  "sql-formatter.uppercase": true,
+  "[sql]": {
+    "editor.defaultFormatter": "adpyke.vscode-sql-formatter"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "files.autoSave": "afterDelay",
+  "editor.accessibilitySupport": "off",
+  "terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
+  "window.commandCenter": true,
+  "window.customMenuBarAltFocus": false,
+  "window.titleBarStyle": "custom",
+  "python.terminal.launchArgs": [
+    "-c",
+    "import matplotlib; matplotlib.use('Agg')"
+  ],
+  "python.terminal.executeInFileDir": true,
+  "extensions.ignoreRecommendations": true,
+  "editor.minimap.autohide": true,
+  "editor.minimap.scale": 3,
+  "editor.wordWrapColumn": 150,
+  "workbench.colorTheme": "SynthWave '84",
+  "editor.wordWrap": "wordWrapColumn",
+  "gitlens.graph.minimap.additionalTypes": [
+    "localBranches",
+    "stashes",
+    "remoteBranches"
+  ],
+  "gitlens.graph.minimap.dataType": "lines",
+  "git.openRepositoryInParentFolders": "always",
+  "cloudcode.project": "hhh-dev-app-wsky",
+  "redhat.telemetry.enabled": false,
+  "sqltools.autoOpenSessionFiles": false,
+  "sqltools.results.location": "current",
+  "sqltools.disableNodeDetectNotifications": false,
+  "sqltools.results.customization": { "font-size": "20" },
+  "sqltools.tableTreeItemsExpanded": false,
+  "explorer.sortOrder": "filesFirst",
+  "[terraform-vars]": {
+    "editor.defaultFormatter": "hashicorp.terraform"
+  },
+  "[terraform]": {
+    "editor.defaultFormatter": "hashicorp.terraform"
+  },
+  "cloudcode.autoDependencies": "off",
+  "codesnap.containerPadding": "1",
+  "codesnap.showWindowTitle": true,
+  "codesnap.shutterAction": "copy",
+  "bigqueryRunner.downloader.rowsPerPage": 100,
+  "python.analysis.extraPaths": [
+    "c:\\Users\\AnveshJarabani\\.vscode\\extensions\\continue.continue-0.0.413-win32-x64",
+    "c:\\Users\\AnveshJarabani\\.vscode\\extensions\\continue.continue-0.1.40-win32-x64",
+    "c:\\Users\\AnveshJarabani\\.vscode\\extensions\\continue.continue-0.1.41-win32-x64",
+    "c:\\Users\\AnveshJarabani\\.vscode\\extensions\\continue.continue-0.2.0-win32-x64",
+    "c:\\Users\\AnveshJarabani\\.vscode\\extensions\\continue.continue-0.5.0-win32-x64",
+    "c:\\Users\\AnveshJarabani\\.vscode\\extensions\\continue.continue-0.6.0-win32-x64"
+  ],
+  "python.autoComplete.extraPaths": [
+    "c:\\Users\\AnveshJarabani\\.vscode\\extensions\\continue.continue-0.0.413-win32-x64",
+    "c:\\Users\\AnveshJarabani\\.vscode\\extensions\\continue.continue-0.1.40-win32-x64",
+    "c:\\Users\\AnveshJarabani\\.vscode\\extensions\\continue.continue-0.1.41-win32-x64",
+    "c:\\Users\\AnveshJarabani\\.vscode\\extensions\\continue.continue-0.2.0-win32-x64",
+    "c:\\Users\\AnveshJarabani\\.vscode\\extensions\\continue.continue-0.5.0-win32-x64",
+    "c:\\Users\\AnveshJarabani\\.vscode\\extensions\\continue.continue-0.6.0-win32-x64"
+  ],
+  "remote.SSH.remotePlatform": {
+    "iap_tunnel": "linux"
+  },
+  "material-icon-theme.files.color": "#26a69a",
+  "material-icon-theme.folders.theme": "classic",
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "todohighlight.isEnable": true,
+  "codestream.serverUrl": "https://codestream-us1.service.newrelic.com",
+  "codestream.email": "Anvesh.Jarabani@WellSky.com",
+  "[jinja-sql]": {
+    "editor.defaultFormatter": "innoverio.vscode-dbt-power-user"
+  },
+  "terminal.integrated.gpuAcceleration": "off",
+  "workbench.iconTheme": "vscode-great-icons",
+  "workbench.editor.pinnedTabSizing": "compact",
+  "leetcode.workspaceFolder": "c:\\Users\\AnveshJarabani\\Downloads\\LEETCODE-PYTHON",
+  "githubPullRequests.pullBranch": "never",
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  }
+  // "sqltools.useNodeRuntime": "/mnt/c/Program Files/nodejs//node.exe"
+}
