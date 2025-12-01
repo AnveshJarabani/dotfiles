@@ -35,7 +35,14 @@
 │   ├── btop/              System monitor
 │   ├── yazi/              File manager
 │   ├── ranger/            File manager
+│   ├── mc/                Midnight Commander
+│   ├── micro/             Micro text editor
+│   ├── fish/              Fish shell
 │   ├── neofetch/          System info
+│   ├── jira/              Jira CLI config
+│   ├── gh/                GitHub CLI
+│   ├── gh-copilot/        GitHub Copilot CLI
+│   ├── github-copilot/    GitHub Copilot
 │   ├── aicommit/          AI commit messages
 │   ├── gitignore/         Global git ignore
 │   └── scripts/           Custom scripts
@@ -76,7 +83,7 @@ cd ~/dotfiles
 # 2. Install configs (choose your OS)
 
 # Linux - All configs
-stow nvim tmux zsh p10k colors lazygit lazydocker starship btop yazi ranger neofetch aicommit gitignore scripts
+stow nvim tmux zsh p10k colors lazygit lazydocker starship btop yazi ranger mc micro fish neofetch jira gh gh-copilot github-copilot aicommit gitignore scripts
 
 # Windows - All configs  
 stow wezterm fluent-search onecommander ohmyposh windows-apps
@@ -145,7 +152,14 @@ stow */                # Stow all packages
 | **btop** | System monitor | Beautiful resource monitor |
 | **yazi** | File manager | Modern TUI file manager |
 | **ranger** | File manager | Vi-like file manager |
+| **mc** | File manager | Midnight Commander (dual-pane) |
+| **micro** | Text editor | Modern terminal text editor |
+| **fish** | Shell | Fish shell configuration |
 | **neofetch** | System info | Fancy system information |
+| **jira** | Jira CLI | Jira command-line interface |
+| **gh** | GitHub CLI | GitHub command-line tool |
+| **gh-copilot** | Copilot CLI | GitHub Copilot CLI config |
+| **github-copilot** | Copilot | GitHub Copilot settings |
 | **aicommit** | AI commits | OpenAI-powered commit messages |
 | **gitignore** | Git ignore | Global gitignore patterns |
 | **scripts** | Custom scripts | Utility scripts |
