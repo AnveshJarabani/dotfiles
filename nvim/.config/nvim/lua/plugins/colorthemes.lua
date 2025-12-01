@@ -12,12 +12,33 @@ return {
           bg = "#1a1a1a",
         },
         highlights = {
+          -- Main background
           Normal = { bg = "#1a1a1a" },
-          NormalFloat = { bg = "#202020" },
+          NormalFloat = { bg = "#1a1a1a" },
           NormalNC = { bg = "#1a1a1a" },
-          FloatBorder = { bg = "#202020" },
+          FloatBorder = { bg = "#1a1a1a", fg = "#4a4a4a" },
           SignColumn = { bg = "#1a1a1a" },
           LineNr = { bg = "#1a1a1a" },
+          
+          -- Popup menus (completion, etc.)
+          Pmenu = { bg = "#1a1a1a" },
+          PmenuSel = { bg = "#2d2d2d" },
+          PmenuSbar = { bg = "#1a1a1a" },
+          PmenuThumb = { bg = "#3a3a3a" },
+          
+          -- Borders
+          WinSeparator = { fg = "#3a3a3a", bg = "#1a1a1a" },
+          VertSplit = { fg = "#3a3a3a", bg = "#1a1a1a" },
+          
+          -- Status and tab lines
+          StatusLine = { bg = "#1a1a1a" },
+          StatusLineNC = { bg = "#1a1a1a" },
+          TabLine = { bg = "#1a1a1a" },
+          TabLineFill = { bg = "#1a1a1a" },
+          TabLineSel = { bg = "#2d2d2d" },
+          
+          -- End of buffer
+          EndOfBuffer = { bg = "#1a1a1a" },
         },
       })
       require("onedark").load()
