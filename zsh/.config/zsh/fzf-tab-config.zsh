@@ -21,7 +21,8 @@ zstyle ':fzf-tab:complete:*:*' fzf-preview '[[ -d $realpath ]] && eza --tree --c
 
 # Specific command overrides
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --tree --color=always --icons --level=2 $realpath'
-zstyle ':fzf-tab:complete:_path_files:*' fzf-preview 'echo "Preview for $realpath"'
+# For autocd and ./ paths (bare directory/file completion)
+zstyle ':fzf-tab:complete:-command-:*' fzf-preview '[[ -d $realpath ]] && eza --tree --color=always --icons --level=2 $realpath || bat --color=always $realpath 2>/dev/null'
 zstyle ':fzf-tab:complete:ls:*' fzf-preview '[[ -d $realpath ]] && eza --tree --color=always --icons --level=2 $realpath || bat --color=always $realpath'
 zstyle ':fzf-tab:complete:cat:*' fzf-preview 'bat --color=always $realpath'
 zstyle ':fzf-tab:complete:bat:*' fzf-preview 'bat --color=always $realpath'
