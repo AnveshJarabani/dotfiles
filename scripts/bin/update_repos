@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Update all git repositories in WELLSKY_REPOS directory
+
+repos_dir="${1:-$HOME/WELLSKY_REPOS}"  # Use argument or default
+
+echo "Updating repositories in $repos_dir"
+
+# Change to the repos directory
+cd "$repos_dir" || exit 1
+
+# Find all directories, excluding those that start with a dot, and execute git pull
+find . -mindepth 1 -maxdepth 1 -type d -not -name ".*" -print -exec git -C {} pull \;
+
+# Return to the original directory
+cd - > /dev/null

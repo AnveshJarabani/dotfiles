@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Switch to main/master, pull, and prune local branches
+
+if git show-ref --verify --quiet refs/heads/main; then
+  git checkout main
+else
+  git checkout master
+fi
+git pull
+git branch --list | egrep -v "(^\*|master|main)" | xargs git branch -D

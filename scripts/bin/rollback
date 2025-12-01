@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Rollback a specific file to previous commit
+
+if [ -z "$1" ]; then
+  echo "Usage: rollback <file-path>"
+  exit 1
+fi
+git checkout HEAD~1 -- "$1"

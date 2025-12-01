@@ -153,43 +153,9 @@ alias zn='zoxide_openfiles_nvim.sh'
 alias zl='fzf_listoldfiles.sh'
 alias tn='tmux_zoxide_nvim.sh'
 
-ggg() {
-  git_email=$(git config user.email)
-  required_email="xzput@outlook.com"
-
-  if [ "$git_email" != "$required_email" ]; then
-    echo "Current git email is '$git_email'. Please switch to '$required_email' to use this function."
-    return 1
-  fi
-
-  git add .
-
-  if [ -z "$1" ]; then
-    commit_message="updates"
-  else
-    commit_message="$1"
-  fi
-
-  git commit -m "$commit_message"
-  git push -u origin "$(git symbolic-ref --short HEAD)"
-
-  current_branch=$(git symbolic-ref --short HEAD)
-  base_branch="main"  # Change to "master" if needed
-
-  #hub pull-request -b "$base_branch" -h "$current_branch" -m "$commit_message"
-  echo "pushed from -"
-  gconfig
-}
+# ggg - moved to ~/dotfiles/scripts/bin/ggg
 alias gitprune='git branch --list | egrep -v "(^\*|master|main)" | xargs git branch -D'
-gmprune() {
-  if git show-ref --verify --quiet refs/heads/main; then
-    git checkout main
-  else
-    git checkout master
-  fi
-  git pull
-  gitprune
-}
+# gmprune - moved to ~/dotfiles/scripts/bin/gmprune
 # SSH server aliases using pass for SSH keys
 alias nuc3="ssh -i <(pass ssh/nuc3) root@192.168.1.103"
 alias nuc2="ssh -i <(pass ssh/nuc2) root@192.168.1.102"
@@ -229,28 +195,8 @@ git-merge() {
     # Delete merged branches locally and remotely
     git branch --merged | egrep -v "(^\*|$target_branch)" | xargs -I % sh -c '{ git branch -d %; git push origin --delete %; }'
 }
-rollback() {
-  if [ -z "$1" ]; then
-    echo "Usage: rollback <file-path>"
-    return 1
-  fi
-  git checkout HEAD~1 -- "$1"
-}
-# Function to update all git repositories in a directory, excluding dot folders
-update_repos() {
-  local repos_dir="$HOME/WELLSKY_REPOS"  # Change this to your repos directory path
-  
-  echo "Updating repositories in $repos_dir"
-  
-  # Change to the repos directory
-  cd "$repos_dir" || return
-  
-  # Find all directories, excluding those that start with a dot, and execute git pull
-  find . -mindepth 1 -maxdepth 1 -type d -not -name ".*" -print -exec git -C {} pull \;
-  
-  # Return to the original directory
-  cd - > /dev/null
-}
+# rollback - moved to ~/dotfiles/scripts/bin/rollback
+# update_repos - moved to ~/dotfiles/scripts/bin/update_repos
 # Function to change to the directory of the file path copied to the clipboard
 function cd_active() {
   # Get the file path from the clipboard
@@ -264,20 +210,8 @@ function cd_active() {
 }
 alias tf-sync="rsync -avr --delete --exclude '*.tfvars' --exclude '*.tfstate' --exclude 'terraform.tf' --exclude '.terraform/' --exclude 'backend.tf' --exclude '*.hcl' --exclude 'db_list.yaml' --include '_config/' --exclude '_*'"
 #GCLOUD SHORTCUTS
-list_passwords() {
-  key_value=$1
-  secrets=$(gcloud secrets list --filter="$key_value" --format="value(name)")
-
-  # Loop through each secret and extract the password
-  echo "$secrets" | while read -r secret; do
-    secret_value=$(gcloud secrets versions access latest --secret="$secret")
-    password=$(echo "$secret_value" | grep -oP '(?<=Password=).*')
-    echo "$secret, $password"
-  done
-}
-function wsl_nat() {
-  powershell.exe -Command "Start-Process powershell.exe -ArgumentList '-File \"C:\Users\AnveshJarabani\SCRIPTS\wsl_nat.ps1\"' -Verb RunAs"
-}
+# list_passwords - moved to ~/dotfiles/scripts/bin/list_passwords
+# wsl_nat - moved to ~/dotfiles/scripts/bin/wsl_nat
 export COLORTERM=truecolor
 # echo "-ZSH TERMINAL-" | figlet -f'DOS Rebel.flf' -p -t -c| lolcat  
 # Lazy load NVM for faster startup
@@ -321,27 +255,7 @@ function y() {
 	rm -f -- "$tmp"
 }
 
-sync_edge_bookmarks() {
-  # EdgeChromium script path (if needed, move to dotfiles or keep here)
-  local ps_script="$HOME/PERSONAL/PRIVATE/CUSTOMIZATIONS/EdgeChromium-Bookmarks-Backup-JSON-to-HTML.ps1"
-  
-  if [ -f "$ps_script" ]; then
-    powershell.exe -ExecutionPolicy Bypass -File "$(wslpath -w "$ps_script")"
-  else
-    echo "EdgeChromium script not found"
-    return 1
-  fi
-
-  # Move today's exported HTML file to your WSL path
-  mv /mnt/c/Users/AnveshJarabani/Documents/EdgeChromium-Bookmarks.backup_$(date +%Y-%m-%d)_*.html \
-     "$HOME/PERSONAL/PRIVATE/edgebookmarks.html"
-
-  # Delete existing Buku database with auto-confirmation
-  yes y| buku --nostdin -d
-
-  # Import the new bookmarks with auto-tagging and no prompts
-  yes y | buku --nostdin -i "$HOME/PERSONAL/PRIVATE/edgebookmarks.html" --tag "$(date +%Y%b%d)"
-}
+# sync_edge_bookmarks - moved to ~/dotfiles/scripts/bin/sync_edge_bookmarks
 # Disable bracketed paste mode
 # unset zle_bracketed_paste
 export BIGQUERY_PROJECT="wsh-dev-analytics-wsky"

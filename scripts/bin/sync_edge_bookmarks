@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Sync Edge Chromium bookmarks to Buku database
+
+# EdgeChromium script path
+ps_script="$HOME/PERSONAL/PRIVATE/CUSTOMIZATIONS/EdgeChromium-Bookmarks-Backup-JSON-to-HTML.ps1"
+
+if [ -f "$ps_script" ]; then
+  powershell.exe -ExecutionPolicy Bypass -File "$(wslpath -w "$ps_script")"
+else
+  echo "EdgeChromium script not found: $ps_script"
+  return 1
+fi
+
+# Move today's exported HTML file to your WSL path
+mv /mnt/c/Users/AnveshJarabani/Documents/EdgeChromium-Bookmarks.backup_$(date +%Y-%m-%d)_*.html \
+   "$HOME/PERSONAL/PRIVATE/edgebookmarks.html"
+
+# Delete existing Buku database with auto-confirmation
+yes y| buku --nostdin -d
+
+# Import the new bookmarks with auto-tagging and no prompts
+yes y | buku --nostdin -i "$HOME/PERSONAL/PRIVATE/edgebookmarks.html" --tag "$(date +%Y%b%d)"

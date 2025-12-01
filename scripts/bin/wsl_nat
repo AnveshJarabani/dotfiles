@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Start WSL NAT PowerShell script with elevated privileges
+
+powershell.exe -Command "Start-Process powershell.exe -ArgumentList '-File \"C:\Users\AnveshJarabani\SCRIPTS\wsl_nat.ps1\"' -Verb RunAs"
