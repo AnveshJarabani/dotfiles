@@ -21,24 +21,24 @@ SESSION_NAME=${SESSION_NAME//./_}
 if [ -n "$TMUX" ]; then
     # We are inside tmux.
     # Check if the session already exists.
-    if tmux has-session -t "=$SESSION_NAME" 2>/dev/null; then
+    if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
         # Session exists, just switch to it.
-        tmux switch-client -t "=$SESSION_NAME"
+        tmux switch-client -t "$SESSION_NAME"
     else
         # Session does not exist, create it and switch.
         # Create the new session in the background.
         tmux new-session -d -s "$SESSION_NAME" -c "$SELECTED_DIR"
         # Send 'nvim' command to the new session.
-        tmux send-keys -t "=$SESSION_NAME" 'nvim' C-m
+        tmux send-keys -t "$SESSION_NAME" 'nvim' C-m
         # Switch to the new session.
-        tmux switch-client -t "=$SESSION_NAME"
+        tmux switch-client -t "$SESSION_NAME"
     fi
 else
     # We are not inside tmux.
     # Check if the session already exists.
-    if tmux has-session -t "=$SESSION_NAME" 2>/dev/null; then
+    if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
         # Session exists, just attach to it.
-        tmux attach-session -t "=$SESSION_NAME"
+        tmux attach-session -t "$SESSION_NAME"
     else
         # Session does not exist, create it and attach.
         # The -c flag sets the starting directory.
