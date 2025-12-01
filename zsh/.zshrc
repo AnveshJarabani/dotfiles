@@ -153,9 +153,7 @@ alias zn='zoxide_openfiles_nvim.sh'
 alias zl='fzf_listoldfiles.sh'
 alias tn='tmux_zoxide_nvim.sh'
 
-# ggg - moved to ~/dotfiles/scripts/bin/ggg
 alias gitprune='git branch --list | egrep -v "(^\*|master|main)" | xargs git branch -D'
-# gmprune - moved to ~/dotfiles/scripts/bin/gmprune
 # SSH server aliases using pass for SSH keys
 alias nuc3="ssh -i <(pass ssh/nuc3) root@192.168.1.103"
 alias nuc2="ssh -i <(pass ssh/nuc2) root@192.168.1.102"
@@ -169,34 +167,7 @@ alias gbrowse="gh browse -R"
 alias oc="/mnt/c/Program\\ Files/OneCommander/OneCommander.exe"
 alias ex="/mnt/c/Program\ Files/Microsoft\ Office/root/Office16/EXCEL.EXE"
 
-git-merge() {
-    if [ "$1" = "-" ]; then
-        branch=$(git rev-parse --abbrev-ref HEAD)  # Use current branch if first argument is a placeholder '-'
-        target_branch=${2:-main}  # Use second argument as target branch, default to 'main'
-    elif [ -z "$1" ]; then
-        branch=$(git rev-parse --abbrev-ref HEAD)  # Default to current branch if no arguments
-        target_branch="main"  # Default target branch to 'main'
-    else
-        branch="$1"
-        target_branch=${2:-main}  # Use second argument as target branch, default to 'main' if not provided
-    fi
-
-    git checkout "$target_branch" && git pull origin "$target_branch"
-    git merge "$branch"
-    
-    # Check if merge resulted in conflicts
-    if [ $? -ne 0 ]; then
-        echo "Merge failed. Resolve conflicts and try again."
-        return 1
-    fi
-
-    git push origin "$target_branch"
-
-    # Delete merged branches locally and remotely
-    git branch --merged | egrep -v "(^\*|$target_branch)" | xargs -I % sh -c '{ git branch -d %; git push origin --delete %; }'
-}
-# rollback - moved to ~/dotfiles/scripts/bin/rollback
-# update_repos - moved to ~/dotfiles/scripts/bin/update_repos
+# git-merge - moved to ~/dotfiles/scripts/bin/git-merge
 # Function to change to the directory of the file path copied to the clipboard
 function cd_active() {
   # Get the file path from the clipboard

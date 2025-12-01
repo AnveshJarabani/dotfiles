@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Merge a branch into target branch and cleanup merged branches
+
+if [ "$1" = "-" ]; then
+    branch=$(git rev-parse --abbrev-ref HEAD)  # Use current branch if first argument is a placeholder '-'
+    target_branch=${2:-main}  # Use second argument as target branch, default to 'main'
+elif [ -z "$1" ]; then
+    branch=$(git rev-parse --abbrev-ref HEAD)  # Default to current branch if no arguments
+    target_branch="main"  # Default target branch to 'main'
+else
+    branch="$1"
+    target_branch=${2:-main}  # Use second argument as target branch, default to 'main' if not provided
+fi
+
+git checkout "$target_branch" && git pull origin "$target_branch"
+git merge "$branch"
+
+# Check if merge resulted in conflicts
+if [ $? -ne 0 ]; then
+    echo "Merge failed. Resolve conflicts and try again."
+    exit 1
+fi
+
+git push origin "$target_branch"
+
+# Delete merged branches locally and remotely
+git branch --merged | egrep -v "(^\*|$target_branch)" | xargs -I % sh -c '{ git branch -d %; git push origin --delete %; }'
