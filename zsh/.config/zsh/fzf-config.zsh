@@ -22,8 +22,8 @@ export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always {}' --preview-window 'r
 # - '--hidden' includes hidden directories.
 # - '--exclude .git' explicitly excludes the .git folder.
 export FZF_ALT_C_COMMAND='fd --type d --hidden --exclude .git'
-# Add a preview window showing the directory structure with 'tree'.
-export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200' --preview-window 'right:50%:border-left'"
+# Add a preview window showing the directory structure with 'eza' (matches zn/zl/tn style).
+export FZF_ALT_C_OPTS="--height=70% --preview 'eza --tree --color=always --icons --level=2 {}'"
 
 # Default options for fzf's appearance and behavior.
 # This will override the fzf alias you had.

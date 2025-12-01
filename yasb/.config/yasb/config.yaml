@@ -65,7 +65,7 @@ widgets:
   clock:
     type: "yasb.clock.ClockWidget"
     options:
-      label: "{%a %d %b %H:%M}"
+      label: "{%a %d %b %I:%M %p}"
       label_alt: "{%A, %d %B %Y, %H:%M}"
       locale: "en_US" # Langugae for date, you can set your own, example fr_FR
       timezones: ["America/Chicago", "America/New_York", "America/Los_Angeles"] #Looking up time zone info from registry
@@ -82,7 +82,7 @@ widgets:
         direction: "down"
         show_holidays: true
         show_week_numbers: true
-        country_code: "PL"
+        country_code: "US"
         holiday_color: "#FF6464"
   weather:
     type: "yasb.weather.WeatherWidget"

@@ -4,18 +4,25 @@
 # Disable default completion menu
 zstyle ':completion:*' menu no
 
-# Enable fzf-tab for all completions
+# Enable fzf-tab for all completions - use regular fzf (respects FZF_DEFAULT_OPTS)
 zstyle ':fzf-tab:*' fzf-command fzf
 
-# Use tmux popup for completions
-zstyle ':fzf-tab:*' fzf-flags --height=80% --layout=reverse --border=bold --margin=1 --padding=1
+# Enable preview window
+zstyle ':fzf-tab:*' show-group full
 
-# Color scheme matching our theme
-zstyle ':fzf-tab:*' fzf-flags --color=fg:#ffeb3b,bg:#1e222a,hl:#c678dd --color=fg+:#61afef,bg+:#2c313c,hl+:#e06c75 --color=info:#56b6c2,prompt:#98c379,pointer:#e06c75 --color=marker:#c678dd,spinner:#61afef,header:#98c379 --color=border:#61afef
+# Match zn/zl/tn style - these override/add to FZF_DEFAULT_OPTS for fzf-tab
+zstyle ':fzf-tab:*' fzf-flags \
+  --height=70% \
+  --preview-window=right:50%:wrap
 
 # Show previews for different commands
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --icons --tree --color=always $realpath | head -200 | sed "s/├/┣/g; s/└/┗/g; s/─/━/g; s/│/┃/g"'
-zstyle ':fzf-tab:complete:ls:*' fzf-preview 'bat --color=always $realpath 2>/dev/null || eza --icons --color=always $realpath'
+# Default catch-all preview FIRST - directories get eza tree, files get bat
+zstyle ':fzf-tab:complete:*:*' fzf-preview '[[ -d $realpath ]] && eza --tree --color=always --icons --level=2 $realpath || bat --color=always $realpath 2>/dev/null'
+
+# Specific command overrides
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --tree --color=always --icons --level=2 $realpath'
+zstyle ':fzf-tab:complete:_path_files:*' fzf-preview 'echo "Preview for $realpath"'
+zstyle ':fzf-tab:complete:ls:*' fzf-preview '[[ -d $realpath ]] && eza --tree --color=always --icons --level=2 $realpath || bat --color=always $realpath'
 zstyle ':fzf-tab:complete:cat:*' fzf-preview 'bat --color=always $realpath'
 zstyle ':fzf-tab:complete:bat:*' fzf-preview 'bat --color=always $realpath'
 zstyle ':fzf-tab:complete:nvim:*' fzf-preview 'bat --color=always $realpath'

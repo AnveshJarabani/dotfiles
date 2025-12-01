@@ -17,9 +17,7 @@ list_oldfiles() {
     local files=($(printf "%s\n" "${valid_files[@]}" | \
         grep -v '\[.*' | \
         fzf --multi \
-        --preview 'bat -n --color=always --line-range=:500 {} 2>/dev/null || echo "Error previewing file"' \
-        --height=70% \
-        --layout=default))
+        --preview 'bat -n --color=always --line-range=:500 {} 2>/dev/null || echo "Error previewing file"'))
 
   # Open selected files in Neovim
   [[ ${#files[@]} -gt 0 ]] && nvim "${files[@]}"

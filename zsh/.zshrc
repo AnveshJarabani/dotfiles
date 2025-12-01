@@ -49,8 +49,11 @@ HISTFILE=~/.cache/.zsh_history
 setopt SHARE_HISTORY
 # Basic auto/tab complete:
 fpath=(/usr/share/zsh/vendor-completions $fpath)
-autoload -Uz compinit
-zstyle ':completion:*' menu select
+# Let oh-my-zsh handle compinit - don't call it here
+# autoload -Uz compinit
+# DON'T set menu select here - let fzf-tab handle it
+# zstyle ':completion:*' menu select
+
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' # Case insensitive completion
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}" # Colored completion
 zstyle ':completion:*:descriptions' format '%U%B%d%b%u' # Group descriptions
@@ -62,30 +65,34 @@ zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p
 LISTMAX=0  # Always show list, never ask
 zmodload zsh/complist
 _comp_options+=(globdots)		# Include hidden files.
-compinit
+# compinit is handled by oh-my-zsh
 ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
 setopt autocd
 plugins=(
     git
-		z
-		tmux
-		fzf-tab
-		zsh-autosuggestions
-		zsh-syntax-highlighting
-		zsh-fzf-history-search
-		zsh-history-substring-search
-		zsh-interactive-cd
-		copybuffer
-		docker-compose
-		terraform
-		gcloud
-		colored-man-pages
-		tldr
-		uv
-		copypath)
+    z
+    tmux
+    fzf-tab
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    zsh-fzf-history-search
+    zsh-history-substring-search
+    zsh-interactive-cd
+    copybuffer
+    docker-compose
+    terraform
+    gcloud
+    colored-man-pages
+    tldr
+    uv
+    copypath)
 # Load fzf-history config BEFORE oh-my-zsh
 source ~/.config/zsh/fzf-history-config.zsh
+
+# Skip slow compinit security checks (safe for single-user systems)
+ZSH_DISABLE_COMPFIX=true
+
 ZSH_TMUX_AUTOSTART="true"
 source $ZSH/oh-my-zsh.sh
 source ~/.config/.fzf-marks/fzf-marks.plugin.zsh
@@ -100,6 +107,10 @@ source ~/.config/zsh/zoxide-config.zsh
 source ~/.config/zsh/fzf-config.zsh
 source ~/.config/zsh/fzf-aliases.zsh
 source ~/.config/zsh/colors-config.zsh
+
+# Rebind TAB to fzf-tab (^I is TAB in terminal notation)
+bindkey '^I' fzf-tab-complete
+
 alias src="source ~/.zshrc"
 alias python=python3.13
 alias z=zi
