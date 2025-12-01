@@ -7,18 +7,17 @@ local config = wezterm.config_builder()
 -- This is where you actually apply your config choices.
 
 -- For example, changing the initial geometry for new windows:
--- not showing any tabs because I plan on using all sessions through tmux.
-config.hide_tab_bar_if_only_one_tab = true
+config.initial_cols = 120
+config.initial_rows = 28
 
 -- or, changing the font size and color scheme.
 config.font_size = 20
 
--- config.use_cap_height_to_scale_fallback_fonts = true
+config.use_cap_height_to_scale_fallback_fonts = true
 
 config.font = wezterm.font_with_fallback({
-	{ family = "JetBrains Mono", weight = "Bold" },
-	{ family = "Symbols Nerd Font Mono", weight = "Regular" },
 	{ family = "FiraCodeiScript Nerd Font", weight = "Bold" },
+	{ family = "CascadiaCode Nerd Font", weight = "Book" },
 	{ family = "MesloLGM Nerd Font Mono", weight = "Bold" },
 })
 
@@ -36,6 +35,7 @@ config.scrollback_lines = 10000 -- Increase scrollback buffer
 
 config.enable_kitty_graphics = true
 config.term = "xterm-256color"
+
 -- Enable font ligatures
 config.harfbuzz_features = { "calt=1", "clig=1", "liga=1" }
 
@@ -46,41 +46,57 @@ config.cursor_blink_ease_in = "Ease"
 config.cursor_blink_ease_out = "Ease"
 config.cursor_thickness = 1
 
-config.allow_square_glyphs_to_overflow_width = "Always" -- or consider "Always"
 -- Remove native Windows title bar
 config.window_decorations = "RESIZE"
 
 -- Set WSL Ubuntu as default shell
 config.default_prog = { "wsl.exe", "--distribution", "Ubuntu" }
 
--- Launch menu configuration for command palette
-config.launch_menu = {
+-- Configure WSL domains
+config.wsl_domains = {
 	{
-		label = "PowerShell (Admin)",
-		args = { "gsudo.exe", "powershell.exe", "-NoLogo" },
-	},
-	{
-		label = "PowerShell",
-		args = { "powershell.exe" },
-	},
-	{
-		label = "PowerShell Core",
-		args = { "pwsh.exe" },
-	},
-	{
-		label = "Command Prompt",
-		args = { "cmd.exe" },
-	},
-	{
-		label = "WSL Ubuntu",
-		args = { "wsl.exe", "--distribution", "Ubuntu" },
+		name = "WSL:Ubuntu",
+		distribution = "Ubuntu",
+		default_cwd = "~",
 	},
 }
+
+-- Set WSL Ubuntu as default domain
+config.default_domain = "WSL:Ubuntu"
+
 -- Tab bar configuration
 config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = false
 config.show_tab_index_in_tab_bar = false
 config.tab_max_width = 32
+
+-- Tab styling
+config.colors = {
+	tab_bar = {
+		background = "#282a36",
+		active_tab = {
+			bg_color = "#bd93f9",
+			fg_color = "#282a36",
+			intensity = "Bold",
+		},
+		inactive_tab = {
+			bg_color = "#44475a",
+			fg_color = "#f8f8f2",
+		},
+		inactive_tab_hover = {
+			bg_color = "#6272a4",
+			fg_color = "#f8f8f2",
+		},
+		new_tab = {
+			bg_color = "#282a36",
+			fg_color = "#f8f8f2",
+		},
+		new_tab_hover = {
+			bg_color = "#6272a4",
+			fg_color = "#f8f8f2",
+		},
+	},
+}
 
 -- Custom tab title formatting
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
@@ -109,13 +125,16 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 	end
 end)
 
-config.window_padding = {
-	left = 0,
-	right = 0,
-	top = 0,
-	bottom = 0,
-}
-
+-- -- Key bindings
+-- config.keys = {
+-- 	-- Ctrl+W to close current tab
+-- 	{
+-- 		key = "w",
+-- 		mods = "CTRL",
+-- 		action = wezterm.action.CloseCurrentTab({ confirm = true }),
+-- 	},
+-- }
+--
 -- Window frame font (fallback for command palette)
 config.window_frame = {
 	font = wezterm.font("Fira Code iscript", { weight = "Bold", italic = true }),

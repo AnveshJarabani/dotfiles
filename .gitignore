@@ -23,3 +23,5 @@
 **/*password*.json
 **/*secret*.json
 **/*token*.json
+# Ignore gh hosts.yml (contains OAuth tokens)
+gh/.config/gh/hosts.yml

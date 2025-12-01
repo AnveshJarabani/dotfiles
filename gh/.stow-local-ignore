@@ -1,0 +1,2 @@
+# Ignore hosts.yml (contains OAuth tokens)
+hosts\.yml$
