@@ -167,7 +167,6 @@ alias gbrowse="gh browse -R"
 alias oc="/mnt/c/Program\\ Files/OneCommander/OneCommander.exe"
 alias ex="/mnt/c/Program\ Files/Microsoft\ Office/root/Office16/EXCEL.EXE"
 
-# git-merge - moved to ~/dotfiles/scripts/bin/git-merge
 # Function to change to the directory of the file path copied to the clipboard
 function cd_active() {
   # Get the file path from the clipboard
@@ -181,8 +180,6 @@ function cd_active() {
 }
 alias tf-sync="rsync -avr --delete --exclude '*.tfvars' --exclude '*.tfstate' --exclude 'terraform.tf' --exclude '.terraform/' --exclude 'backend.tf' --exclude '*.hcl' --exclude 'db_list.yaml' --include '_config/' --exclude '_*'"
 #GCLOUD SHORTCUTS
-# list_passwords - moved to ~/dotfiles/scripts/bin/list_passwords
-# wsl_nat - moved to ~/dotfiles/scripts/bin/wsl_nat
 export COLORTERM=truecolor
 # echo "-ZSH TERMINAL-" | figlet -f'DOS Rebel.flf' -p -t -c| lolcat  
 # Lazy load NVM for faster startup
@@ -226,7 +223,6 @@ function y() {
 	rm -f -- "$tmp"
 }
 
-# sync_edge_bookmarks - moved to ~/dotfiles/scripts/bin/sync_edge_bookmarks
 # Disable bracketed paste mode
 # unset zle_bracketed_paste
 export BIGQUERY_PROJECT="wsh-dev-analytics-wsky"
