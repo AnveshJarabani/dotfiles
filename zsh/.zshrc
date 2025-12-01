@@ -349,3 +349,5 @@ export BIGQUERY_PROJECT="wsh-dev-analytics-wsky"
 # GPG_TTY required for pass/gpg passphrase prompts to work
 export GPG_TTY=$(tty)
 
+. "$HOME/.atuin/bin/env"
+eval "$(atuin init zsh --disable-up-arrow)"
