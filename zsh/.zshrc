@@ -140,6 +140,7 @@ alias b="buku --deep -S"
 # Custom scripts (from ~/bin via stow)
 alias zn='zoxide_openfiles_nvim.sh'
 alias zl='fzf_listoldfiles.sh'
+alias tn='tmux_zoxide_nvim.sh'
 git config --global user.name "AvneshJarabani-Wellsky"
 git config --global user.email "anvesh.jarabani@wellsky.com"
 ggg() {
