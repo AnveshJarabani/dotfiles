@@ -70,22 +70,21 @@ ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
 setopt autocd
 plugins=(
+    # Essential plugins for a fast prompt
+    forgit
+    zsh-defer
+    you-should-use
     git
     tmux
     fzf-tab
-    zsh-completions
     fast-syntax-highlighting
     zsh-autosuggestions
     zsh-fzf-history-search
     zsh-history-substring-search
     copybuffer
-    docker-compose
-    terraform
-    gcloud
+    copypath
     colored-man-pages
-    tldr
-    uv
-    copypath)
+)
 # Load fzf-history config BEFORE oh-my-zsh
 source ~/.config/zsh/fzf-history-config.zsh
 
@@ -94,10 +93,14 @@ ZSH_DISABLE_COMPFIX=true
 
 ZSH_TMUX_AUTOSTART="true"
 source $ZSH/oh-my-zsh.sh
+
+# Defer non-essential plugins (for completion) to speed up startup
+zsh-defer omz plugin load zsh-completions docker-compose terraform gcloud tldr uv
 source ~/.config/.fzf-marks/fzf-marks.plugin.zsh
 
 # Load fzf AFTER oh-my-zsh so zsh-fzf-history-search takes priority for Ctrl+R
 eval "$(fzf --zsh)"
+
 
 eval "$(zoxide init zsh)"
 # Source modular configurations from ~/.config/zsh/
@@ -144,7 +147,7 @@ alias splan="spacectl stack local-preview"
 alias sauth="spacectl profile login  --endpoint https://wellsky.app.us.spacelift.io"
 alias jl="jira sprint  list --current -a$(jira me)"
 # SSH aliases using pass for key management
-alias sftp="sshfs -o IdentityFile=<(pass ssh/sftpgo_wsl) -p 2022 wsl@sftp.local:/ /mnt/sftpgo"
+alias sftp="sshfs -o IdentityFile=~/.ssh/sftpgo_wsl -p 2022 wsl@sftp.local:/ /mnt/sftpgo"
 alias unmount="fusermount -u /mnt/sftpgo"
 alias b="buku --deep -S"
 # Custom scripts (from ~/bin via stow)
@@ -181,14 +184,10 @@ alias tf-sync="rsync -avr --delete --exclude '*.tfvars' --exclude '*.tfstate' --
 #GCLOUD SHORTCUTS
 export COLORTERM=truecolor
 # echo "-ZSH TERMINAL-" | figlet -f'DOS Rebel.flf' -p -t -c| lolcat  
-# Lazy load NVM for faster startup
+# Lazy load NVM for faster startup with zsh-defer
 export NVM_DIR="$HOME/.nvm"
-nvm() {
-    unset -f nvm
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-    nvm "$@"
-}
+zsh-defer source "$NVM_DIR/nvm.sh"
+zsh-defer source "$NVM_DIR/bash_completion"
 
 # Key bindings
 bindkey '^[[1;5D' backward-word
@@ -202,13 +201,9 @@ bindkey '^[[B' history-substring-search-down
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=green,fg=white,bold'
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=red,fg=white,bold'
 
-# Google Cloud SDK - lazy load
-gcloud() {
-    unset -f gcloud
-    [ -f '/root/google-cloud-sdk/path.zsh.inc' ] && source '/root/google-cloud-sdk/path.zsh.inc'
-    [ -f '/root/google-cloud-sdk/completion.zsh.inc' ] && source '/root/google-cloud-sdk/completion.zsh.inc'
-    gcloud "$@"
-}
+# Google Cloud SDK - lazy load with zsh-defer
+zsh-defer source '/root/google-cloud-sdk/path.zsh.inc'
+zsh-defer source '/root/google-cloud-sdk/completion.zsh.inc'
 
 tmux-git-autofetch() {(/root/.tmux/plugins/tmux-git-autofetch/git-autofetch.tmux --current &)}
 # add-zsh-hook chpwd tmux-git-autofetch
