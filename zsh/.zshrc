@@ -79,7 +79,6 @@ plugins=(
     fast-syntax-highlighting
     zsh-autosuggestions
     zsh-fzf-history-search
-    zsh-history-substring-search
     copybuffer
     copypath
     colored-man-pages
@@ -193,12 +192,7 @@ bindkey '^[[1;5D' backward-word
 bindkey '^[[1;5C' forward-word
 bindkey '^H' backward-kill-word 
 bindkey -r '^P'
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-
-# History search highlighting
-HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=green,fg=white,bold'
-HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=red,fg=white,bold'
+# Up/down arrows handled by atuin (loaded below)
 
 # Google Cloud SDK - lazy load with zsh-defer
 zsh-defer source '/root/google-cloud-sdk/path.zsh.inc'
@@ -223,5 +217,5 @@ export BIGQUERY_PROJECT="wsh-dev-analytics-wsky"
 # GPG_TTY required for pass/gpg passphrase prompts to work
 export GPG_TTY=$(tty)
 
-zsh-defer source "$HOME/.atuin/bin/env"
-zsh-defer eval "$(atuin init zsh)"
+source "$HOME/.atuin/bin/env"
+eval "$(atuin init zsh)"
