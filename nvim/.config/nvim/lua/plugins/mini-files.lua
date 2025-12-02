@@ -120,5 +120,11 @@ return {
     -- Load Git integration
     -- git config is slowing mini.files too much, so disabling it
     -- mini_files_git.setup()
+
+    -- Match dark background with custom theme
+    vim.api.nvim_set_hl(0, "MiniFilesNormal", { bg = "#1a1a1a" })
+    vim.api.nvim_set_hl(0, "MiniFilesBorder", { bg = "#1a1a1a", fg = "#4a4a4a" })
+    vim.api.nvim_set_hl(0, "MiniFilesTitle", { bg = "#1a1a1a" })
+    vim.api.nvim_set_hl(0, "MiniFilesTitleFocused", { bg = "#1a1a1a" })
   end,
 }

@@ -1,6 +1,7 @@
 return {
   {
     "magal1337/dataform.nvim",
+    enabled = false,
     requires = {
       -- Optional dependencies
       "rcarriga/nvim-notify",

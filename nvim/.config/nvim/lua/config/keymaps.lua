@@ -36,6 +36,13 @@ map({ "n", "x" }, "d", [["_d]], { desc = "🗑️ Delete to blackhole register" 
 map("n", "dd", [["_dd]], { desc = "🗑️ Delete line to blackhole register" })
 map({ "n", "x" }, "x", [["_x]], { desc = "🗑️ Delete to blackhole register" }) -- 'x' is char delete
 
+-- Cut operations (delete + yank to clipboard) - Using 'm' for move/cut
+map({ "n", "x" }, "m", [["+d]], { desc = "✂️ Cut to clipboard" })
+map("n", "mm", [["+dd]], { desc = "✂️ Cut line to clipboard" })
+map("n", "M", [["+D]], { desc = "✂️ Cut to end of line to clipboard" })
+map("n", "miw", [["+diw]], { desc = "✂️ Cut inner word to clipboard" })
+map("n", "mw", [["+dw]], { desc = "✂️ Cut word to clipboard" })
+
 -- Change operations for Normal and Visual modes
 map({ "n", "x" }, "c", [["_c]], { desc = "✏️ Change to blackhole register" })
 map({ "n", "x" }, "C", [["_C]], { desc = "✏️ Change to blackhole register" })
@@ -45,7 +52,13 @@ map("n", "cc", [["_cc]], { desc = "✏️ Change line to blackhole register" })
 -- or are typically used differently
 map("n", "ciw", [["_ciw]], { desc = "✏️ Change inner word to blackhole register" })
 map("n", "cw", [["_cw]], { desc = "✏️ Change word to blackhole register" })
--- ... and other normal mode specific operations
+
+-- Change with clipboard (cut and enter insert mode) - Using <leader>v
+map({ "n", "x" }, "<leader>vc", [["+c]], { desc = "✂️ Cut and change with clipboard" })
+map("n", "<leader>vcc", [["+cc]], { desc = "✂️ Cut line and change with clipboard" })
+map("n", "<leader>vC", [["+C]], { desc = "✂️ Cut to end and change with clipboard" })
+map("n", "<leader>viw", [["+ciw]], { desc = "✂️ Cut inner word and change with clipboard" })
+map("n", "<leader>vw", [["+cw]], { desc = "✂️ Cut word and change with clipboard" })
 
 -- For 'S' (substitute line), it's a normal mode command.
 -- map("n", "S", [["_S]], { desc = "Substitute line to blackhole register" })
