@@ -12,7 +12,7 @@ zstyle ':fzf-tab:*' show-group full
 
 # Match zn/zl/tn style - these override/add to FZF_DEFAULT_OPTS for fzf-tab
 zstyle ':fzf-tab:*' fzf-flags \
-  --height=70% \
+  --tmux=90%,95% \
   --preview-window=right:50%:wrap
 
 # Show previews for different commands

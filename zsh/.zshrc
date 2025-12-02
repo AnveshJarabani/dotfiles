@@ -71,14 +71,13 @@ COMPLETION_WAITING_DOTS="true"
 setopt autocd
 plugins=(
     git
-    z
     tmux
     fzf-tab
+    zsh-completions
+    fast-syntax-highlighting
     zsh-autosuggestions
-    zsh-syntax-highlighting
     zsh-fzf-history-search
     zsh-history-substring-search
-    zsh-interactive-cd
     copybuffer
     docker-compose
     terraform
