@@ -13,7 +13,12 @@ zstyle ':fzf-tab:*' show-group full
 # Match zn/zl/tn style - these override/add to FZF_DEFAULT_OPTS for fzf-tab
 zstyle ':fzf-tab:*' fzf-flags \
   --tmux=90%,95% \
-  --preview-window=right:50%:wrap
+  --preview-window=right:50%:wrap \
+  --color='fg:#ffeb3b,bg:#1e222a,hl:#c678dd' \
+  --color='fg+:#61afef,bg+:#2c313c,hl+:#e06c75' \
+  --color='info:#56b6c2,prompt:#98c379,pointer:#e06c75' \
+  --color='marker:#c678dd,spinner:#61afef,header:#98c379' \
+  --color='border:#61afef,separator:#61afef,scrollbar:#61afef'
 
 # Show previews for different commands
 # Default catch-all preview FIRST - directories get eza tree, files get bat
