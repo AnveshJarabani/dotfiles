@@ -18,7 +18,7 @@ zstyle ':fzf-tab:*' fzf-flags \
   --color='fg+:#61afef,bg+:#2c313c,hl+:#e06c75' \
   --color='info:#56b6c2,prompt:#98c379,pointer:#e06c75' \
   --color='marker:#c678dd,spinner:#61afef,header:#98c379' \
-  --color='border:#61afef,separator:#61afef,scrollbar:#61afef'
+  --color='border:#61afef,separator:#61afef,scrollbar:#61afef,preview-fg:#ffeb3b,preview-bg:#1e222a'
 
 # Show previews for different commands
 # Default catch-all preview FIRST - directories get eza tree, files get bat
