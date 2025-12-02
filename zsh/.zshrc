@@ -13,7 +13,6 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 if [ -f ~/.aliases ]; then
    . ~/.aliases
 fi
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # If you come from bash you might have to change your $PATH.
 # export PATH="usr/local/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
 export PATH=.:$PATH
@@ -96,19 +95,19 @@ source $ZSH/oh-my-zsh.sh
 
 # Defer non-essential plugins (for completion) to speed up startup
 zsh-defer omz plugin load zsh-completions docker-compose terraform gcloud tldr uv
-source ~/.config/.fzf-marks/fzf-marks.plugin.zsh
+zsh-defer source ~/.config/.fzf-marks/fzf-marks.plugin.zsh
 
 # Load fzf AFTER oh-my-zsh so zsh-fzf-history-search takes priority for Ctrl+R
-eval "$(fzf --zsh)"
+zsh-defer eval "$(fzf --zsh)"
 
 
-eval "$(zoxide init zsh)"
+zsh-defer eval "$(zoxide init zsh)"
 # Source modular configurations from ~/.config/zsh/
-source ~/.config/zsh/fzf-tab-config.zsh
-source ~/.config/zsh/zoxide-config.zsh
-source ~/.config/zsh/fzf-config.zsh
-source ~/.config/zsh/fzf-aliases.zsh
-source ~/.config/zsh/colors-config.zsh
+zsh-defer source ~/.config/zsh/fzf-tab-config.zsh
+zsh-defer source ~/.config/zsh/zoxide-config.zsh
+zsh-defer source ~/.config/zsh/fzf-config.zsh
+zsh-defer source ~/.config/zsh/fzf-aliases.zsh
+zsh-defer source ~/.config/zsh/colors-config.zsh
 
 # Rebind TAB to fzf-tab (^I is TAB in terminal notation)
 bindkey '^I' fzf-tab-complete
@@ -224,5 +223,5 @@ export BIGQUERY_PROJECT="wsh-dev-analytics-wsky"
 # GPG_TTY required for pass/gpg passphrase prompts to work
 export GPG_TTY=$(tty)
 
-. "$HOME/.atuin/bin/env"
-eval "$(atuin init zsh --disable-up-arrow)"
+zsh-defer source "$HOME/.atuin/bin/env"
+zsh-defer eval "$(atuin init zsh)"
