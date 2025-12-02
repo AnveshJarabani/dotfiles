@@ -379,6 +379,11 @@ map("n", "<leader>ox", "<cmd>Octo issue close<CR>", { desc = "❌ Octo: Close is
 map("n", "<leader>on", "<cmd>Octo issue create<CR>", { desc = "✨ Octo: Create issue" })
 map("n", "<leader>oe", "<cmd>Octo issue edit<CR>", { desc = "✏️ Octo: Edit issue" })
 
+-- Git commands
+map("n", "<leader>gS", ":!git status<CR>", { desc = "📊 Git status" })
+map("n", "<leader>gP", ":!git push<CR>", { desc = "⬆️ Git push" })
+map("n", "<leader>gp", ":!git pull<CR>", { desc = "⬇️ Git pull" })
+
 map("n", "<leader>gM", function()
   local bufname = vim.api.nvim_buf_get_name(0)
   local pr_number = bufname:match("pull/(%d+)") or bufname:match("pr/(%d+)")
