@@ -36,7 +36,7 @@ function M.pick_branch()
           if selection then
             -- Branch exists, checkout
             local branch = selection[1]
-            vim.cmd("Git checkout " .. vim.fn.shellescape(branch))
+            vim.fn.system("git checkout " .. vim.fn.shellescape(branch))
             vim.notify("Switched to branch: " .. branch, vim.log.levels.INFO)
           elseif input_text and input_text ~= "" then
             -- No selection, create new branch
@@ -45,7 +45,7 @@ function M.pick_branch()
               default = "y",
             }, function(confirm)
               if confirm and (confirm:lower() == "y" or confirm == "") then
-                vim.cmd("Git checkout -b " .. vim.fn.shellescape(input_text))
+                vim.fn.system("git checkout -b " .. vim.fn.shellescape(input_text))
                 vim.notify("Created and switched to new branch: " .. input_text, vim.log.levels.INFO)
               end
             end)
