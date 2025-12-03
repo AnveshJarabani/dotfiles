@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Quick git commit with optional message (requires xzput@outlook.com)
+# Quick git commit with optional message (requires personal email from pass)
 
 git_email=$(git config user.email)
-required_email="xzput@outlook.com"
+required_email="$(pass git/personal/email)"
 
 if [ "$git_email" != "$required_email" ]; then
   echo "Current git email is '$git_email'. Please switch to '$required_email' to use this function."

@@ -23,6 +23,7 @@
 **/*password*.json
 **/*secret*.json
 **/*token*.json
+
 # Ignore gh hosts.yml (contains OAuth tokens)
 gh/.config/gh/hosts.yml
 
@@ -30,3 +31,11 @@ gh/.config/gh/hosts.yml
 github-copilot/.config/github-copilot/apps.json
 github-copilot/.config/github-copilot/*.db
 jira/.config/.jira/.config.yml
+
+# Personal data files generated from pass
+.gitconfig-personal
+.gitconfig-work
+.env.personal
+**/*personal.yml
+**/*private*
+

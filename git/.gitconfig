@@ -1,8 +1,10 @@
 # Default to work identity
+# NOTE: Actual values stored in pass
+# Run 'git-profile work' or 'git-profile personal' to load from pass
 [user]
-	name = AnveshJarabani-Wellsky
-	email = anvesh.jarabani@wellsky.com
-	signingkey = 2B9BE0A0C0632BBE
+	name = PLACEHOLDER
+	email = PLACEHOLDER
+	signingkey = PLACEHOLDER
 
 [commit]
 	gpgsign = true

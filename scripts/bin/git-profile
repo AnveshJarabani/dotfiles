@@ -1,28 +1,29 @@
 #!/bin/bash
 
 # Switch between personal and work git profiles
+# Credentials stored securely in pass
 
 case "$1" in
     personal|p)
-        git config --global user.name "AnveshJarabani"
-        git config --global user.email "xzput@outlook.com"
-        git config --global user.signingkey "12AB229CE64A58C5"
+        git config --global user.name "$(pass git/personal/name)"
+        git config --global user.email "$(pass git/personal/email)"
+        git config --global user.signingkey "$(pass git/personal/signing-key)"
         git config --global core.sshCommand "ssh -i ~/.ssh/id_rsa"
         echo "✓ Switched to PERSONAL git profile"
-        echo "  Name: AnveshJarabani"
-        echo "  Email: xzput@outlook.com"
-        echo "  GPG Key: 12AB229CE64A58C5"
+        echo "  Name: $(pass git/personal/name)"
+        echo "  Email: $(pass git/personal/email)"
+        echo "  GPG Key: $(pass git/personal/signing-key)"
         ;;
     
     work|w)
-        git config --global user.name "AnveshJarabani"
-        git config --global user.email "anvesh.jarabani@wellsky.com"
-        git config --global user.signingkey "2B9BE0A0C0632BBE"
+        git config --global user.name "$(pass git/work/name)"
+        git config --global user.email "$(pass git/work/email)"
+        git config --global user.signingkey "$(pass git/work/signing-key)"
         git config --global core.sshCommand "ssh -i ~/.ssh/git_p"
         echo "✓ Switched to WORK git profile"
-        echo "  Name: AnveshJarabani"
-        echo "  Email: anvesh.jarabani@wellsky.com"
-        echo "  GPG Key: 2B9BE0A0C0632BBE"
+        echo "  Name: $(pass git/work/name)"
+        echo "  Email: $(pass git/work/email)"
+        echo "  GPG Key: $(pass git/work/signing-key)"
         ;;
     
     show|s|*)

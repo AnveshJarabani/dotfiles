@@ -12,7 +12,8 @@ else
 fi
 
 # Move today's exported HTML file to your WSL path
-mv /mnt/c/Users/AnveshJarabani/Documents/EdgeChromium-Bookmarks.backup_$(date +%Y-%m-%d)_*.html \
+WIN_USER=$(pass windows/username)
+mv /mnt/c/Users/$WIN_USER/Documents/EdgeChromium-Bookmarks.backup_$(date +%Y-%m-%d)_*.html \
    "$HOME/PERSONAL/PRIVATE/edgebookmarks.html"
 
 # Delete existing Buku database with auto-confirmation

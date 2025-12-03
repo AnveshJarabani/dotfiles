@@ -383,6 +383,9 @@ map("n", "<leader>oe", "<cmd>Octo issue edit<CR>", { desc = "✏️ Octo: Edit i
 map("n", "<leader>gS", ":!git status<CR>", { desc = "📊 Git status" })
 map("n", "<leader>gP", ":!git push<CR>", { desc = "⬆️ Git push" })
 map("n", "<leader>gp", ":!git pull<CR>", { desc = "⬇️ Git pull" })
+map("n", "<leader>ga", function()
+  require("config.git-branches").pick_branch()
+end, { desc = "🌿 Git: Checkout/Create Branch" })
 
 map("n", "<leader>gM", function()
   local bufname = vim.api.nvim_buf_get_name(0)
