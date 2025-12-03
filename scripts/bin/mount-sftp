@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Mount SFTP using key from pass
+
+MOUNT_POINT="/mnt/sftpgo"
+KEY_FILE="/tmp/sftpgo_key_$$"
+
+# Ensure mount point exists
+mkdir -p "$MOUNT_POINT"
+
+# Export key from pass to temp file
+pass show ssh/sftpgo_wsl > "$KEY_FILE"
+chmod 600 "$KEY_FILE"
+
+# Mount with the key file
+sshfs -o IdentityFile="$KEY_FILE" -p 2022 wsl@sftp.local:/ "$MOUNT_POINT"
+
+# Clean up the temp key file
+rm -f "$KEY_FILE"
+
+if mountpoint -q "$MOUNT_POINT"; then
+    echo "✅ SFTP mounted at $MOUNT_POINT"
+else
+    echo "❌ SFTP mount failed"
+    exit 1
+fi

@@ -74,7 +74,7 @@ map("n", "<Esc>", function()
 end, { desc = "❌ Close all floating windows with Esc" })
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "noice", "copilot", "qf", "help", "markdown" }, -- add filetypes that open in splits
+  pattern = { "noice", "copilot", "codecompanion", "qf", "help", "markdown" }, -- add filetypes that open in splits
   callback = function()
     -- Map <Esc> to close the window/buffer
     map("n", "<Esc>", "<cmd>close<cr>", { buffer = true, silent = true })

@@ -35,4 +35,4 @@ zsh-defer source '/root/google-cloud-sdk/completion.zsh.inc'
 # Atuin - Shell History (NOT deferred - needed for immediate up-arrow support)
 # ──────────────────────────────────────────────────────────────────────────
 source "$HOME/.atuin/bin/env"
-eval "$(atuin init zsh)"
+eval "$(atuin init zsh)" 2>/dev/null

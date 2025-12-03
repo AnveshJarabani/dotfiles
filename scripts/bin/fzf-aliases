@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+# ============================================================================
+# FZF Alias Picker - Interactive alias browser
+# ============================================================================
+# Usage: fzf-aliases
+# Displays all atuin aliases in FZF and executes the selected one
+# ============================================================================
+
+# Get all aliases from atuin
+selected=$(atuin dotfiles alias list | \
+    fzf --height=50% \
+        --layout=reverse \
+        --border=rounded \
+        --prompt="🔍 Aliases > " \
+        --header="Select an alias to view/execute (Ctrl+C to cancel)" \
+        --preview='echo {} | sed "s/=/\n  ↳ /"' \
+        --preview-window=up:3:wrap \
+        --bind='ctrl-y:execute-silent(echo {} | cut -d= -f2- | xclip -selection clipboard)+abort' \
+        --color='header:italic:dim,prompt:blue:bold,pointer:green:bold')
+
+if [ -n "$selected" ]; then
+    # Extract alias name and command
+    alias_name=$(echo "$selected" | cut -d'=' -f1)
+    alias_cmd=$(echo "$selected" | cut -d'=' -f2-)
+    
+    echo ""
+    echo "╭─────────────────────────────────────────╮"
+    echo "│  Alias: $alias_name"
+    echo "│  Command: $alias_cmd"
+    echo "╰─────────────────────────────────────────╯"
+    echo ""
+    
+    # Ask what to do
+    echo "Options:"
+    echo "  [1] Execute command"
+    echo "  [2] Copy to clipboard"
+    echo "  [3] Print and exit"
+    echo "  [q] Cancel"
+    echo ""
+    read -p "Choose: " choice
+    
+    case $choice in
+        1)
+            echo "Executing: $alias_cmd"
+            eval "$alias_cmd"
+            ;;
+        2)
+            echo "$alias_cmd" | xclip -selection clipboard
+            echo "✅ Copied to clipboard!"
+            ;;
+        3)
+            echo "$alias_cmd"
+            ;;
+        *)
+            echo "Cancelled"
+            ;;
+    esac
+fi

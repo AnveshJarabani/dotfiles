@@ -93,6 +93,9 @@ source ~/.config/zsh/keybindings.zsh
 # Load external tools (FZF, Zoxide, Atuin, NVM, etc.)
 source ~/.config/zsh/external.zsh
 
+# Load SSH agent with pass integration
+source ~/.config/zsh/ssh-agent-pass.zsh
+
 # ──────────────────────────────────────────────────────────────────────────
 # Legacy Aliases File (if exists)
 # ──────────────────────────────────────────────────────────────────────────
