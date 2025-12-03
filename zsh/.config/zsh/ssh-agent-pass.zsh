@@ -63,9 +63,8 @@ load_all_ssh_keys() {
     
     # List of SSH keys to load
     local ssh_keys=(
-        "git_p"
-        "id_rsa"
-        "id_rsa_p"
+        "git_p"          # Personal GitHub (AnveshJarabani)
+        "git_work"       # Work GitHub (AnveshJarabani-WellSky)
         "nuc2"
         "nuc3"
         "nuc4"

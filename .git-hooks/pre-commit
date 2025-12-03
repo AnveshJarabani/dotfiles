@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+# Pre-commit hook to scan for secrets before committing
+# Install: cp .git-hooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+
+set -e
+
+echo "🔐 Running pre-commit secret scan..."
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+FAILED=0
+
+# Function to check if command exists
+command_exists() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+# 1. Check for gitleaks
+if command_exists gitleaks; then
+  echo "🔍 Running Gitleaks..."
+  if ! gitleaks protect --staged --verbose --config .gitleaks.toml; then
+    echo -e "${RED}❌ Gitleaks found secrets in staged files!${NC}"
+    FAILED=1
+  else
+    echo -e "${GREEN}✅ Gitleaks: No secrets found${NC}"
+  fi
+else
+  echo -e "${YELLOW}⚠️  Gitleaks not installed. Install with: brew install gitleaks${NC}"
+fi
+
+# 2. Check for emails in code (not docs)
+echo "📧 Scanning for emails in code..."
+EMAILS=$(git diff --cached --name-only | \
+  grep -v "\.md$" | \
+  grep -v "^docs/" | \
+  xargs grep -h -E "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" 2>/dev/null | \
+  grep -v "example.com" | \
+  grep -v "PLACEHOLDER" | \
+  grep -v "pass git/" | \
+  grep -v '$(pass' || true)
+
+if [ -n "$EMAILS" ]; then
+  echo -e "${RED}❌ Found emails in staged files:${NC}"
+  echo "$EMAILS"
+  FAILED=1
+else
+  echo -e "${GREEN}✅ No hardcoded emails${NC}"
+fi
+
+# 3. Check for API tokens
+echo "🔑 Scanning for API tokens..."
+TOKENS=$(git diff --cached --name-only | \
+  xargs grep -h -E "(ghp_|gho_|github_pat_|ATATT|AKIA)" 2>/dev/null || true)
+
+if [ -n "$TOKENS" ]; then
+  echo -e "${RED}❌ Found API tokens in staged files:${NC}"
+  echo "$TOKENS"
+  FAILED=1
+else
+  echo -e "${GREEN}✅ No API tokens${NC}"
+fi
+
+# 4. Check for private keys
+echo "🔐 Scanning for private keys..."
+KEYS=$(git diff --cached --name-only | \
+  xargs grep -h "BEGIN.*PRIVATE KEY" 2>/dev/null || true)
+
+if [ -n "$KEYS" ]; then
+  echo -e "${RED}❌ Found private keys in staged files!${NC}"
+  FAILED=1
+else
+  echo -e "${GREEN}✅ No private keys${NC}"
+fi
+
+# 5. Check for suspicious comments (like TmuxNavigateLef)
+echo "📝 Scanning for suspicious comments..."
+COMMENTS=$(git diff --cached --name-only | \
+  grep -v "\.md$" | \
+  xargs grep -h -i "comm:.*Tmux\|TODO.*password\|FIXME.*token" 2>/dev/null || true)
+
+if [ -n "$COMMENTS" ]; then
+  echo -e "${YELLOW}⚠️  Found potentially sensitive comments:${NC}"
+  echo "$COMMENTS"
+  echo -e "${YELLOW}Consider removing or sanitizing these comments.${NC}"
+  # Don't fail on comments, just warn
+fi
+
+# Final result
+echo ""
+if [ $FAILED -eq 1 ]; then
+  echo -e "${RED}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+  echo -e "${RED}❌ PRE-COMMIT FAILED: Secrets detected!${NC}"
+  echo -e "${RED}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+  echo ""
+  echo "Please remove sensitive data before committing."
+  echo "Use 'pass' to store secrets securely instead."
+  echo ""
+  exit 1
+else
+  echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+  echo -e "${GREEN}✅ All pre-commit checks passed!${NC}"
+  echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+  echo ""
+fi
+
+exit 0

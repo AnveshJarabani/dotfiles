@@ -1,0 +1,84 @@
+# Gitleaks Configuration for Dotfiles Repository
+# https://github.com/gitleaks/gitleaks
+
+title = "Dotfiles Secret Scanner"
+
+[extend]
+# Use default gitleaks rules
+useDefault = true
+
+# Custom rules for dotfiles-specific patterns
+[[rules]]
+id = "email-address"
+description = "Detects email addresses in code (not docs)"
+regex = '''[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'''
+tags = ["email", "pii"]
+
+[[rules]]
+id = "github-token"
+description = "GitHub Personal Access Token"
+regex = '''gh[pousr]_[0-9a-zA-Z]{36}'''
+tags = ["token", "github"]
+
+[[rules]]
+id = "jira-token"
+description = "Atlassian/Jira API Token"
+regex = '''ATATT[a-zA-Z0-9_-]{20,}'''
+tags = ["token", "jira"]
+
+[[rules]]
+id = "private-key"
+description = "Private Key"
+regex = '''-----BEGIN (RSA|OPENSSH|DSA|EC|PGP) PRIVATE KEY-----'''
+tags = ["key", "private"]
+
+[[rules]]
+id = "aws-key"
+description = "AWS Access Key"
+regex = '''AKIA[0-9A-Z]{16}'''
+tags = ["key", "aws"]
+
+[[rules]]
+id = "slack-token"
+description = "Slack Token"
+regex = '''xox[baprs]-[0-9]{10,13}-[0-9]{10,13}-[a-zA-Z0-9]{24,}'''
+tags = ["token", "slack"]
+
+[[rules]]
+id = "generic-api-key"
+description = "Generic API Key"
+regex = '''(?i)(api[_-]?key|apikey|api[_-]?secret)["\s:=]+[a-zA-Z0-9_\-]{20,}'''
+tags = ["key", "api"]
+
+# Allowlist - paths to ignore
+[allowlist]
+description = "Allowlist for documentation and examples"
+paths = [
+  '''docs/.*\.md$''',
+  '''README\.md$''',
+  '''LICENSE$''',
+  '''\.gitignore$''',
+  '''\.github/.*\.yml$''',
+  '''.*\.json\.example$''',
+]
+
+# Allowlist specific patterns that are safe
+regexes = [
+  '''example\.com''',
+  '''user@example''',
+  '''your-email@domain\.com''',
+  '''PLACEHOLDER''',
+  '''pass git/''',  # References to pass commands are OK
+  '''$(pass ''',     # Command substitutions for pass are OK
+  '''EMAIL=.*pass''', # Env vars loading from pass are OK
+]
+
+# Stopwords - common false positives
+stopwords = [
+  "example",
+  "placeholder",
+  "sample",
+  "test",
+  "demo",
+  "your-email",
+]
