@@ -29,3 +29,6 @@ promptToReturnFromSubprocess: false
 notARepository: 'skip'
 os:
   openLink: '"/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe" {{link}}'
+services:
+  'github-work': 'github:github.com'
+  'github-personal': 'github:github.com'
