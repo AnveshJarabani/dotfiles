@@ -247,6 +247,27 @@ map("n", "<leader>tc", function()
   copilot_term:toggle()
 end, { desc = "🤖 Toggle Copilot floating terminal in project root dir" })
 
+local claude_term
+map("n", "<leader>td", function()
+  local git_root_cmd = "git rev-parse --show-toplevel"
+  local git_root = vim.fn.trim(vim.fn.system(git_root_cmd .. " 2>/dev/null"))
+  local dir
+  if git_root and git_root ~= "" and vim.fn.isdirectory(git_root) == 1 then
+    dir = git_root
+  else
+    dir = vim.fn.getcwd()
+  end
+  if not claude_term then
+    claude_term = require("toggleterm.terminal").Terminal:new({
+      direction = "float",
+      dir = dir,
+      cmd = "claude",
+      name = "claude_term",
+    })
+  end
+  claude_term:toggle()
+end, { desc = "🤖 Toggle Claude floating terminal in project root dir" })
+
 map("i", "<C-y>", function()
   require("copilot.suggestion").accept()
 end, { desc = "🤖 Copilot Accept" })

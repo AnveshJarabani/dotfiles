@@ -10,6 +10,22 @@ return {
     },
     opts = {
       adapters = {
+        anthropic = function()
+          return require("codecompanion.adapters").extend("anthropic", {
+            env = {
+              api_key = "cmd:gcloud auth print-access-token",
+            },
+            url = "https://us-east5-aiplatform.googleapis.com/v1/projects/wsh-dev-vertex-wsky/locations/us-east5/publishers/anthropic/models/${model}:streamRawPredict",
+            schema = {
+              model = {
+                default = "claude-sonnet-4-20250514",
+              },
+            },
+            headers = {
+              ["X-Goog-User-Project"] = "wsh-dev-vertex-wsky",
+            },
+          })
+        end,
         copilot = function()
           return require("codecompanion.adapters").extend("copilot", {
             schema = {
@@ -22,14 +38,14 @@ return {
       },
       strategies = {
         chat = {
-          adapter = "copilot",
+          adapter = "anthropic", -- Using Vertex AI
           roles = {
-            llm = " 🤖 ",
+            llm = " 🤖 Claude",
             user = " 👱 ",
           },
         },
         inline = {
-          adapter = "copilot",
+          adapter = "anthropic", -- Using Vertex AI
         },
       },
       display = {
@@ -40,7 +56,7 @@ return {
             height = 0.95,
             relative = "editor",
             border = "rounded",
-            title = "Copilot",
+            title = "Claude",
           },
           show_settings = false,
           show_token_count = false,

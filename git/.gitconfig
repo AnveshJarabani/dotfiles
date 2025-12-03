@@ -10,11 +10,11 @@
 	gpgsign = true
 
 # Conditional configs based on directory
-[includeIf "gitdir:~/WELLSKY_REPOS/"]
+[includeIf "gitdir:~/WELLSKY_REPOS/**"]
 	path = ~/.gitconfig-work
 
-[includeIf "gitdir:~/PERSONAL/"]
+[includeIf "gitdir:~/PERSONAL/**"]
 	path = ~/.gitconfig-personal
 
-[includeIf "gitdir:~/dotfiles/"]
+[includeIf "gitdir:~/dotfiles/**"]
 	path = ~/.gitconfig-personal
