@@ -29,7 +29,7 @@
 │   ├── zsh/               Zsh (Oh-My-Zsh + P10k)
 │   ├── p10k/              Powerlevel10k theme
 │   ├── colors/            Terminal color schemes
-│   ├── lazygit/           LazyGit TUI
+│   ├── lazygit/           LazyGit TUI (GitHub SSH aliases)
 │   ├── lazydocker/        LazyDocker TUI
 │   ├── starship/          Starship prompt
 │   ├── btop/              System monitor
@@ -146,7 +146,7 @@ stow */                # Stow all packages
 | **zsh** | Shell config | Oh-My-Zsh, P10k, custom aliases |
 | **p10k** | Powerlevel10k | Custom prompt theme |
 | **colors** | Terminal colors | LS_COLORS, syntax highlighting |
-| **lazygit** | Git TUI | Catppuccin theme, nerd fonts |
+| **lazygit** | Git TUI | Catppuccin theme, GitHub SSH aliases (github-work/personal) |
 | **lazydocker** | Docker TUI | Container management |
 | **starship** | Fast prompt | Git status, language versions |
 | **btop** | System monitor | Beautiful resource monitor |
