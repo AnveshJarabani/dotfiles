@@ -8,8 +8,9 @@ function M.pick_branch()
   local actions = require("telescope.actions")
   local action_state = require("telescope.actions.state")
 
-  -- Get local git branches only (excludes remote branches)
-  local handle = io.popen("git branch --format='%(refname:short)'")
+  -- Get only open (non-merged) local branches
+  -- This excludes branches that have been merged and closed
+  local handle = io.popen("git for-each-ref --format='%(refname:short)' refs/heads/")
   local result = handle:read("*a")
   handle:close()
 

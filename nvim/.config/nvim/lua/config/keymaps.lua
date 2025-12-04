@@ -163,9 +163,6 @@ map("n", "<space>zz", ":qa!<CR>", { desc = "🚪 Quit All" })
 map("n", "<leader>gs", function()
   require("config.gh-search").search_code()
 end, { noremap = true, silent = true, desc = "🔍 GitHub Code Search" })
-map("n", "<leader>gb", function()
-  require("config.gh-search").browse_repo()
-end, { noremap = true, silent = true, desc = "📦 GitHub Browse Repo" })
 
 map("n", "<leader>zl", function()
   require("snacks").lazygit()
@@ -404,7 +401,7 @@ map("n", "<leader>oe", "<cmd>Octo issue edit<CR>", { desc = "✏️ Octo: Edit i
 map("n", "<leader>gS", ":!git status<CR>", { desc = "📊 Git status" })
 map("n", "<leader>gP", ":!git push<CR>", { desc = "⬆️ Git push" })
 map("n", "<leader>gp", ":!git pull<CR>", { desc = "⬇️ Git pull" })
-map("n", "<leader>ga", function()
+map("n", "<leader>gb", function()
   require("config.git-branches").pick_branch()
 end, { desc = "🌿 Git: Checkout/Create Branch" })
 

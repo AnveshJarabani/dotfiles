@@ -18,3 +18,15 @@
 
 [includeIf "gitdir:~/dotfiles/**"]
 	path = ~/.gitconfig-personal
+
+[includeIf "gitdir:~/.password-store/"]
+	path = ~/.gitconfig-personal
+
+[includeIf "gitdir:/root/.password-store/"]
+	path = ~/.gitconfig-personal
+
+# Conditional includes for work repos
+[includeIf "gitdir:~/WELLSKY_REPOS/"]
+path = ~/.gitconfig-wellsky
+[includeIf "gitdir:/root/WELLSKY_REPOS/"]
+path = ~/.gitconfig-wellsky
