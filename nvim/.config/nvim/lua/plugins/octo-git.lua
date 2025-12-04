@@ -12,6 +12,7 @@ return {
       require("octo").setup({
         ssh_aliases = {
           ["github-work"] = "github.com",
+          ["github-personal"] = "github.com",
         },
       })
     end,

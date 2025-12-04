@@ -53,19 +53,9 @@ cat > /tmp/pr_description.md << 'EOF'
 EOF
 gh api repos/%s/%s/pulls/%s --method PATCH --field body=@/tmp/pr_description.md]], pr_url, tmp_file, owner, repo, pr_number)
 
-    -- Open copilot terminal and inject the prompt
-    local git_root_cmd = "git rev-parse --show-toplevel"
-    local git_root = vim.fn.trim(vim.fn.system(git_root_cmd .. " 2>/dev/null"))
-    local dir = (git_root and git_root ~= "" and vim.fn.isdirectory(git_root) == 1) and git_root or vim.fn.getcwd()
-    
-    -- Get or create copilot terminal
-    local Terminal = require("toggleterm.terminal").Terminal
-    local copilot_term = Terminal:new({
-      direction = "float",
-      dir = dir,
-      cmd = "copilot",
-      name = "copilot_term_pr",
-    })
+    -- Get copilot terminal from terminals module
+    local terminals = require("config.terminals")
+    local copilot_term = terminals.get_copilot_term()
     
     -- Open terminal
     copilot_term:toggle()

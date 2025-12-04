@@ -10,9 +10,7 @@ local map = vim.keymap.set
 -- Remap window navigation to Ctrl-ArrowKeys
 map("n", "<M-Left>", "<C-w>h", { desc = "🔄 Go to Left Window", remap = true })
 map("n", "<leader>cc", function()
-  local cwd = vim.fn.getcwd()
-  vim.fn.system("code " .. vim.fn.shellescape(cwd))
-  vim.notify("Opened project in VS Code: " .. cwd, vim.log.levels.INFO)
+  require("config.clipboard-utils").open_in_vscode()
 end, { desc = "💻 Open current project in VS Code" })
 map("n", "<M-Down>", "<C-w>j", { desc = "🔄 Go to Lower Window", remap = true })
 map("n", "<M-Up>", "<C-w>k", { desc = "🔄 Go to Upper Window", remap = true })
@@ -65,12 +63,7 @@ map("n", "<leader>vw", [["+cw]], { desc = "✂️ Cut word and change with clipb
 
 -- use escape to close any popup windows
 map("n", "<Esc>", function()
-  for _, win in ipairs(vim.api.nvim_list_wins()) do
-    local config = vim.api.nvim_win_get_config(win)
-    if config.relative ~= "" then
-      vim.api.nvim_win_close(win, false)
-    end
-  end
+  require("config.window-utils").close_floating_windows()
 end, { desc = "❌ Close all floating windows with Esc" })
 
 vim.api.nvim_create_autocmd("FileType", {
@@ -188,81 +181,22 @@ vim.api.nvim_create_autocmd("FileType", {
 
 local main_term
 map("n", "<leader>tl", function()
-  local git_root_cmd = "git rev-parse --show-toplevel"
-  local git_root = vim.fn.trim(vim.fn.system(git_root_cmd .. " 2>/dev/null"))
-  local dir
-  if git_root and git_root ~= "" and vim.fn.isdirectory(git_root) == 1 then
-    dir = git_root
-  else
-    dir = vim.fn.getcwd()
-  end
-  if not main_term then
-    main_term = require("toggleterm.terminal").Terminal:new({ direction = "float", dir = dir, name = "main_term" })
-  end
-  main_term:toggle()
+  require("config.terminals").toggle_main()
 end, { desc = "💻 Toggle main floating terminal in project root dir" })
 
 local gemini_term
 map("n", "<leader>tg", function()
-  local git_root_cmd = "git rev-parse --show-toplevel"
-  local git_root = vim.fn.trim(vim.fn.system(git_root_cmd .. " 2>/dev/null"))
-  local dir
-  if git_root and git_root ~= "" and vim.fn.isdirectory(git_root) == 1 then
-    dir = git_root
-  else
-    dir = vim.fn.getcwd()
-  end
-  if not gemini_term then
-    gemini_term = require("toggleterm.terminal").Terminal:new({
-      direction = "float",
-      dir = dir,
-      cmd = "gemini",
-      name = "gemini_term",
-    })
-  end
-  gemini_term:toggle()
+  require("config.terminals").toggle_gemini()
 end, { desc = "♊ Toggle Gemini floating terminal in project root dir" })
 
 local copilot_term
 map("n", "<leader>tc", function()
-  local git_root_cmd = "git rev-parse --show-toplevel"
-  local git_root = vim.fn.trim(vim.fn.system(git_root_cmd .. " 2>/dev/null"))
-  local dir
-  if git_root and git_root ~= "" and vim.fn.isdirectory(git_root) == 1 then
-    dir = git_root
-  else
-    dir = vim.fn.getcwd()
-  end
-  if not copilot_term then
-    copilot_term = require("toggleterm.terminal").Terminal:new({
-      direction = "float",
-      dir = dir,
-      cmd = "copilot",
-      name = "copilot_term",
-    })
-  end
-  copilot_term:toggle()
+  require("config.terminals").toggle_copilot()
 end, { desc = "🤖 Toggle Copilot floating terminal in project root dir" })
 
 local claude_term
 map("n", "<leader>td", function()
-  local git_root_cmd = "git rev-parse --show-toplevel"
-  local git_root = vim.fn.trim(vim.fn.system(git_root_cmd .. " 2>/dev/null"))
-  local dir
-  if git_root and git_root ~= "" and vim.fn.isdirectory(git_root) == 1 then
-    dir = git_root
-  else
-    dir = vim.fn.getcwd()
-  end
-  if not claude_term then
-    claude_term = require("toggleterm.terminal").Terminal:new({
-      direction = "float",
-      dir = dir,
-      cmd = "claude",
-      name = "claude_term",
-    })
-  end
-  claude_term:toggle()
+  require("config.terminals").toggle_claude()
 end, { desc = "🤖 Toggle Claude floating terminal in project root dir" })
 
 map("i", "<C-y>", function()
@@ -276,44 +210,27 @@ map("n", "<leader>sr", "<cmd>SessionRestore<CR>", { desc = "📂 Restore Session
 map("n", "<leader>sd", "<cmd>SessionDelete<CR>", { desc = "🗑️ Delete Session" })
 
 map("n", "<leader>yd", function()
-  local dir = vim.fn.expand("%:p:h")
-  vim.fn.setreg("+", dir)
-  vim.notify("Copied directory to clipboard:\n" .. dir, vim.log.levels.INFO)
+  require("config.clipboard-utils").copy_buffer_directory()
 end, { desc = "📁 Copy buffer directory to clipboard" })
 
 map("n", "<leader>yb", function()
-  local path = vim.fn.expand("%:p:r")
-  vim.fn.setreg("+", path)
-  vim.notify("Copied file path to clipboard:\n" .. path, vim.log.levels.INFO)
+  require("config.clipboard-utils").copy_buffer_filepath()
 end, { desc = "📄 Copy buffer file path to clipboard" })
 
 map("n", "<leader>yw", function()
-  local filepath = vim.fn.expand("%:p")
-  local win_path = vim.fn.system("wslpath -w " .. vim.fn.shellescape(filepath)):gsub("\n", "")
-  vim.fn.setreg("+", win_path)
-  vim.notify("Copied Windows path to clipboard:\n" .. win_path, vim.log.levels.INFO)
+  require("config.clipboard-utils").copy_windows_path()
 end, { desc = "🪟 Copy buffer path as Windows path (WSL)" })
 
 map("n", "<leader>ye", function()
-  local filepath = vim.fn.expand("%:p")
-  local win_path = vim.fn.system("wslpath -w " .. vim.fn.shellescape(filepath)):gsub("\n", "")
-  vim.fn.system("/mnt/c/Program\\ Files/OneCommander/OneCommander.exe " .. vim.fn.shellescape(win_path))
-  vim.notify("Opened in One Commander:\n" .. win_path, vim.log.levels.INFO)
+  require("config.clipboard-utils").open_in_one_commander()
 end, { desc = "🪟 Open buffer directory in One Commander" })
 
 map("n", "<leader>yf", function()
-  local filename = vim.fn.expand("%:t:r")
-  vim.fn.setreg("+", filename)
-  vim.notify("Copied file name to clipboard:\n" .. filename, vim.log.levels.INFO)
+  require("config.clipboard-utils").copy_filename()
 end, { desc = "📝 Copy buffer file name to clipboard" })
 
 map("n", "<leader>yp", function()
-  local cwd = vim.fn.getcwd()
-  local filepath = vim.fn.expand("%:p")
-  local relative_path = vim.fn.fnamemodify(filepath, ":.")
-  relative_path = "./" .. relative_path
-  vim.fn.setreg("+", relative_path)
-  vim.notify("Copied project-relative path to clipboard:\n" .. relative_path, vim.log.levels.INFO)
+  require("config.clipboard-utils").copy_relative_path()
 end, { desc = "📍 Copy project-relative path to clipboard" })
 
 vim.api.nvim_set_keymap("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, silent = true })
@@ -330,58 +247,20 @@ map("n", "<leader>qn", "<cmd>cnext<CR>", { desc = "⏭️ Next quickfix item" })
 map("n", "<leader>qp", "<cmd>cprev<CR>", { desc = "⏮️ Previous quickfix item" })
 
 -- Function to remove trailing whitespace from current buffer
-local function remove_trailing_whitespace()
-  vim.cmd([[%s/\s\+$//e]])
-  print("Removed trailing whitespace from current buffer")
-end
-
--- Create user command
-vim.api.nvim_create_user_command("RemoveTrailingWhitespace", remove_trailing_whitespace, {})
+vim.api.nvim_create_user_command("RemoveTrailingWhitespace", function()
+  require("config.window-utils").remove_trailing_whitespace()
+end, {})
 
 -- Create hotkey
-map("n", "<leader>tw", remove_trailing_whitespace, { desc = "🧹 Remove trailing whitespace from current buffer" })
+map("n", "<leader>tw", function()
+  require("config.window-utils").remove_trailing_whitespace()
+end, { desc = "🧹 Remove trailing whitespace from current buffer" })
 map("n", "<leader>gm", function()
-  -- Get git root directory
-  local git_root_cmd = "git rev-parse --show-toplevel"
-  local git_root = vim.fn.trim(vim.fn.system(git_root_cmd .. " 2>/dev/null"))
-  local dir = (git_root and git_root ~= "" and vim.fn.isdirectory(git_root) == 1) and git_root or vim.fn.getcwd()
-  
-  -- Create prompt for commit message
-  local prompt = 'add commit message with lots of fun fancy modern icons'
-  
-  -- Get or create copilot terminal (shared with <leader>tc)
-  if not copilot_term then
-    copilot_term = require("toggleterm.terminal").Terminal:new({
-      direction = "float",
-      dir = dir,
-      cmd = "copilot",
-      name = "copilot_term",
-    })
-  end
-  
-  -- Open terminal
-  copilot_term:toggle()
-  
-  -- Wait a bit for terminal to be ready, then send the prompt
-  vim.defer_fn(function()
-    copilot_term:send(prompt)
-  end, 500)
-  
-  vim.notify("🤖 Commit message prompt injected into Copilot terminal!", vim.log.levels.INFO)
+  require("config.commit-message").generate_commit_message()
 end, { desc = "🤖 Generate commit message with Copilot" })
 --just a newterminal
 map("n", "<leader>tn", function()
-  vim.ui.input({ prompt = "Terminal name: " }, function(name)
-    if not name or name == "" then
-      return
-    end
-    local Terminal = require("toggleterm.terminal").Terminal
-    local new_term = Terminal:new({
-      direction = "float",
-      name = name,
-    })
-    new_term:toggle()
-  end)
+  require("config.terminals").create_named_terminal()
 end, { desc = "➕ Create new named terminal" })
 
 -- Octo (GitHub integration) mappings
@@ -419,74 +298,6 @@ map("n", "<leader>gb", function()
   require("config.git-branches").pick_branch()
 end, { desc = "🌿 Git: Checkout/Create Branch" })
 
-map("n", "<leader>gM", function()
-  local bufname = vim.api.nvim_buf_get_name(0)
-  local pr_number = bufname:match("pull/(%d+)") or bufname:match("pr/(%d+)")
-
-  if not pr_number then
-    vim.notify("Not in a PR buffer. Current buffer: " .. bufname, vim.log.levels.ERROR)
-    return
-  end
-
-  -- Extract repo from buffer name (e.g., mediwareinc/wsh-bi-dataform)
-  local repo = bufname:match("octo://([^/]+/[^/]+)/")
-  if not repo then
-    vim.notify("Could not extract repository from buffer name", vim.log.levels.ERROR)
-    return
-  end
-
-  vim.notify("Generating description for PR #" .. pr_number, vim.log.levels.INFO)
-
-  -- Get the diff
-  local diff_cmd = string.format("gh pr diff %s --repo %s", pr_number, repo)
-  local handle = io.popen(diff_cmd)
-  local diff = handle:read("*a")
-  handle:close()
-
-  if diff == "" then
-    vim.notify("No diff found for PR #" .. pr_number, vim.log.levels.ERROR)
-    return
-  end
-
-  -- Generate description with copilot - pass diff via stdin
-  local copilot_cmd = string.format(
-    "gh pr diff %s --repo %s | copilot -p 'Generate a fancy PR description with emojis based on this diff. Include what changed, why, and any notes. Make it professional but fun.' --allow-all-tools",
-    pr_number,
-    repo
-  )
-
-  local handle2 = io.popen(copilot_cmd)
-  local description = handle2:read("*a")
-  handle2:close()
-
-  if description ~= "" then
-    -- Update PR with generated description
-    local update_cmd =
-      string.format("gh pr edit %s --repo %s --body %s", pr_number, repo, vim.fn.shellescape(description))
-    vim.fn.system(update_cmd)
-    vim.fn.setreg("+", description)
-    vim.notify("PR #" .. pr_number .. " description updated!", vim.log.levels.INFO)
-  else
-    vim.notify("Failed to generate description", vim.log.levels.ERROR)
-  end
-end, { desc = "🤖 Generate PR description with Copilot CLI" })
-
 map("n", "<leader>ts", function()
-  local toggleterm = require("toggleterm.terminal")
-  local terms = toggleterm.get_all()
-  if #terms == 0 then
-    vim.notify("No terminals open", vim.log.levels.WARN)
-    return
-  end
-  vim.ui.select(
-    vim.tbl_map(function(t)
-      return t.display_name or t.name or "Terminal " .. t.id
-    end, terms),
-    { prompt = "Select terminal:" },
-    function(choice, idx)
-      if choice then
-        terms[idx]:toggle()
-      end
-    end
-  )
+  require("config.terminals").show_terminal_list()
 end, { desc = "🔭 Select and toggle terminal" })
