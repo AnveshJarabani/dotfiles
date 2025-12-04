@@ -2,70 +2,30 @@
 local M = {}
 
 function M.generate_description()
-  local pickers = require("telescope.pickers")
-  local finders = require("telescope.finders")
-  local conf = require("telescope.config").values
-  local actions = require("telescope.actions")
-  local action_state = require("telescope.actions.state")
-
-  -- Get list of PRs
-  local handle = io.popen("gh pr list --json number,title,headRefName --jq '.[] | \"#\\(.number) - \\(.title) (\\(.headRefName))\"'")
-  local result = handle:read("*a")
-  handle:close()
-
-  if result == "" then
-    vim.notify("❌ No PRs found in this repository", vim.log.levels.ERROR)
+  -- Get PR URL from current Octo buffer (same as <leader>ou)
+  vim.cmd("Octo pr url")
+  local pr_url = vim.fn.getreg("+")
+  
+  if not pr_url or pr_url == "" then
+    vim.notify("❌ Not in an Octo PR buffer. Open a PR first with <leader>ol", vim.log.levels.ERROR)
     return
   end
 
-  local prs = {}
-  for line in result:gmatch("[^\r\n]+") do
-    table.insert(prs, line)
+  vim.notify("🤖 Generating comprehensive PR description...", vim.log.levels.INFO)
+  
+  -- Extract owner, repo, and PR number from URL
+  -- Format: https://github.com/owner/repo/pull/123
+  local owner, repo, pr_number = pr_url:match("github%.com/([^/]+)/([^/]+)/pull/(%d+)")
+  
+  if not owner or not repo or not pr_number then
+    vim.notify("❌ Could not parse PR URL: " .. pr_url, vim.log.levels.ERROR)
+    return
   end
 
-  pickers
-    .new({}, {
-      prompt_title = "Select PR to Generate Description",
-      finder = finders.new_table({
-        results = prs,
-      }),
-      sorter = conf.generic_sorter({}),
-      attach_mappings = function(prompt_bufnr, map)
-        actions.select_default:replace(function()
-          local selection = action_state.get_selected_entry()
-          actions.close(prompt_bufnr)
-
-          if not selection then
-            return
-          end
-
-          -- Extract PR number from selection
-          local pr_number = selection[1]:match("#(%d+)")
-          if not pr_number then
-            vim.notify("❌ Could not extract PR number", vim.log.levels.ERROR)
-            return
-          end
-
-          M.generate_for_pr(pr_number)
-        end)
-        return true
-      end,
-    })
-    :find()
+  M.generate_for_pr(pr_number, owner, repo, pr_url)
 end
 
-function M.generate_for_pr(pr_number)
-    -- Get PR URL and repo info
-    local pr_info = vim.fn.system(string.format("gh pr view %s --json url,repository --jq '{url: .url, owner: .repository.owner.login, repo: .repository.name}'", pr_number))
-    if vim.v.shell_error ~= 0 then
-      vim.notify("❌ Failed to get PR info", vim.log.levels.ERROR)
-      return
-    end
-    
-    local info = vim.fn.json_decode(pr_info)
-    local pr_url = info.url
-    local owner = info.owner
-    local repo = info.repo
+function M.generate_for_pr(pr_number, owner, repo, pr_url)
 
     -- Get PR diff
     local diff = vim.fn.system("gh pr diff " .. pr_number)
