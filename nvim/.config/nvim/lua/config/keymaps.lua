@@ -341,23 +341,34 @@ vim.api.nvim_create_user_command("RemoveTrailingWhitespace", remove_trailing_whi
 -- Create hotkey
 map("n", "<leader>tw", remove_trailing_whitespace, { desc = "🧹 Remove trailing whitespace from current buffer" })
 map("n", "<leader>gm", function()
-  local Terminal = require("toggleterm.terminal").Terminal
-  local copilot_term = Terminal:new({
-    cmd = 'copilot -p "add commit message with lots of fun fancy modern icons" --allow-all-tools',
-    direction = "float",
-    float_opts = {
-      border = "curved",
-    },
-    on_exit = function(t, job, exit_code)
-      if exit_code == 0 then
-        vim.notify("Commit message generated and pushed successfully!", vim.log.levels.INFO)
-      else
-        vim.notify("Failed to generate commit message or push", vim.log.levels.ERROR)
-      end
-    end,
-  })
+  -- Get git root directory
+  local git_root_cmd = "git rev-parse --show-toplevel"
+  local git_root = vim.fn.trim(vim.fn.system(git_root_cmd .. " 2>/dev/null"))
+  local dir = (git_root and git_root ~= "" and vim.fn.isdirectory(git_root) == 1) and git_root or vim.fn.getcwd()
+  
+  -- Create prompt for commit message
+  local prompt = 'add commit message with lots of fun fancy modern icons'
+  
+  -- Get or create copilot terminal (shared with <leader>tc)
+  if not copilot_term then
+    copilot_term = require("toggleterm.terminal").Terminal:new({
+      direction = "float",
+      dir = dir,
+      cmd = "copilot",
+      name = "copilot_term",
+    })
+  end
+  
+  -- Open terminal
   copilot_term:toggle()
-end, { desc = "🤖 Run copilot commit message and push (interactive)" })
+  
+  -- Wait a bit for terminal to be ready, then send the prompt
+  vim.defer_fn(function()
+    copilot_term:send(prompt)
+  end, 500)
+  
+  vim.notify("🤖 Commit message prompt injected into Copilot terminal!", vim.log.levels.INFO)
+end, { desc = "🤖 Generate commit message with Copilot" })
 --just a newterminal
 map("n", "<leader>tn", function()
   vim.ui.input({ prompt = "Terminal name: " }, function(name)
