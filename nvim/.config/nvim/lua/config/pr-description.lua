@@ -26,7 +26,6 @@ function M.generate_description()
 end
 
 function M.generate_for_pr(pr_number, owner, repo, pr_url)
-
     -- Get PR diff
     local diff = vim.fn.system("gh pr diff " .. pr_number)
     if vim.v.shell_error ~= 0 then
@@ -35,12 +34,11 @@ function M.generate_for_pr(pr_number, owner, repo, pr_url)
     end
 
     -- Create temp file with diff
-    local tmp_file = vim.fn.tempname()
+    local tmp_file = "/tmp/pr_diff_" .. pr_number .. ".diff"
     vim.fn.writefile(vim.split(diff, "\n"), tmp_file)
 
-    -- Ask Copilot to generate description with comprehensive prompt
-    vim.notify("🤖 Generating comprehensive PR description with Copilot...", vim.log.levels.INFO)
-    local prompt = string.format([[Add a comprehensive PR description for %s based on the diff. Use emojis/icons to make it visually appealing and include:
+    -- Build the comprehensive prompt
+    local prompt = string.format([[Add a comprehensive PR description for %s based on the diff in %s. Use emojis/icons to make it visually appealing and include:
 - Overview/summary of changes
 - What was removed, added, and refactored
 - Impact summary with metrics (files changed, lines added/removed)
@@ -48,57 +46,36 @@ function M.generate_for_pr(pr_number, owner, repo, pr_url)
 - Benefits
 - Testing checklist if applicable
 
-Use the /tmp/pr_description.md file method to pass the description to gh pr edit via GitHub API.]], pr_url)
+Use the /tmp/pr_description.md file method to pass the description to gh pr edit via GitHub API:
+
+cat > /tmp/pr_description.md << 'EOF'
+<your markdown content here>
+EOF
+gh api repos/%s/%s/pulls/%s --method PATCH --field body=@/tmp/pr_description.md]], pr_url, tmp_file, owner, repo, pr_number)
+
+    -- Open copilot terminal and inject the prompt
+    local git_root_cmd = "git rev-parse --show-toplevel"
+    local git_root = vim.fn.trim(vim.fn.system(git_root_cmd .. " 2>/dev/null"))
+    local dir = (git_root and git_root ~= "" and vim.fn.isdirectory(git_root) == 1) and git_root or vim.fn.getcwd()
     
-    -- Use gh copilot suggest to generate description
-    local cmd = string.format(
-      "gh copilot suggest 'Read the diff from %s and %s' 2>&1 | tail -n +3",
-      tmp_file,
-      prompt
-    )
-    local description = vim.fn.system(cmd)
-
-    -- Clean up
-    vim.fn.delete(tmp_file)
-
-    -- Show the generated description in a buffer for editing
-    local buf = vim.api.nvim_create_buf(false, true)
-    vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(description, "\n"))
-    vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
-    vim.api.nvim_buf_set_option(buf, "filetype", "markdown")
-
-    -- Open in split
-    vim.cmd("split")
-    vim.api.nvim_win_set_buf(0, buf)
-
-    -- Add keymap to update PR description using gh api
-    vim.api.nvim_buf_set_keymap(buf, "n", "<CR>", "", {
-      callback = function()
-        local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
-        local final_desc = table.concat(lines, "\n")
-        
-        -- Write to /tmp/pr_description.md as specified in the prompt
-        vim.fn.writefile(vim.split(final_desc, "\n"), "/tmp/pr_description.md")
-
-        -- Use gh api with --field body=@/tmp/pr_description.md to handle special characters properly
-        local result = vim.fn.system(string.format(
-          "gh api repos/%s/%s/pulls/%s --method PATCH --field body=@/tmp/pr_description.md",
-          owner, repo, pr_number
-        ))
-
-        if vim.v.shell_error == 0 then
-          vim.notify("✅ PR description updated via GitHub API!", vim.log.levels.INFO)
-          vim.cmd("close")
-        else
-          vim.notify("❌ Failed to update PR: " .. result, vim.log.levels.ERROR)
-        end
-      end,
-      noremap = true,
-      silent = true,
-      desc = "Update PR description via GitHub API"
+    -- Get or create copilot terminal
+    local Terminal = require("toggleterm.terminal").Terminal
+    local copilot_term = Terminal:new({
+      direction = "float",
+      dir = dir,
+      cmd = "copilot",
+      name = "copilot_term_pr",
     })
-
-    vim.notify("📝 Edit description and press <CR> to update PR #" .. pr_number, vim.log.levels.INFO)
+    
+    -- Open terminal
+    copilot_term:toggle()
+    
+    -- Wait a bit for terminal to be ready, then send the prompt
+    vim.defer_fn(function()
+      copilot_term:send(prompt)
+    end, 500)
+    
+    vim.notify("🤖 Prompt injected into Copilot terminal. Review and execute!", vim.log.levels.INFO)
 end
 
 return M
