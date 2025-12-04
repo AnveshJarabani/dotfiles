@@ -69,9 +69,6 @@ load_all_ssh_keys() {
         "nuc3"
         "nuc4"
         "px"
-        "pihole"
-        "pihole2"
-        "pihole3"
         "sftpgo_wsl"
         "google_compute_engine"
     )
