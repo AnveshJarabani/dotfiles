@@ -396,6 +396,9 @@ map("n", "<leader>oi", "<cmd>Octo issue list<CR>", { desc = "📋 Octo: List iss
 map("n", "<leader>ox", "<cmd>Octo issue close<CR>", { desc = "❌ Octo: Close issue" })
 map("n", "<leader>on", "<cmd>Octo issue create<CR>", { desc = "✨ Octo: Create issue" })
 map("n", "<leader>oe", "<cmd>Octo issue edit<CR>", { desc = "✏️ Octo: Edit issue" })
+map("n", "<leader>op", function()
+  require("config.pr-description").generate_description()
+end, { desc = "🤖 AI: Generate PR Description" })
 
 -- Git commands
 map("n", "<leader>gS", ":!git status<CR>", { desc = "📊 Git status" })
