@@ -11,3 +11,6 @@ vim.keymap.set("n", "<Space>", "<Nop>", { silent = true })
 
 vim.opt.swapfile = false
 vim.opt.shortmess:append "A"
+
+-- Keep timeoutlen high so you have time to read which-key and pick a key
+vim.opt.timeoutlen = 1000  -- Time in ms to wait for next key after popup shows

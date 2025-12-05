@@ -35,6 +35,12 @@ require("lazy").setup({
     enabled = true, -- check for plugin updates periodically
     notify = false, -- notify on update
   }, -- automatically check for plugin updates
+  ui = {
+    -- Disable default <leader>l keybinding
+    custom_keys = {
+      ["<leader>l"] = false,
+    },
+  },
   performance = {
     rtp = {
       -- disable some rtp plugins

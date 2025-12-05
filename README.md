@@ -272,8 +272,9 @@ stow -nv nvim
 | Binding | Action |
 |---------|--------|
 | `<leader>gs` | GitHub code search |
-| `<leader>zl` | LazyGit |
-| `<leader>zf` | LazyGit fullscreen |
+| `<leader>ll` | Lazy Plugin Manager |
+| `<leader>lz` | LazyGit |
+| `<leader>lf` | LazyGit fullscreen |
 | `<leader><space>` | Find files |
 
 ---

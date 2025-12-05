@@ -4,6 +4,7 @@ return {
     event = "VeryLazy",
     opts = {
       -- preset = "modern",
+      delay = 100, -- Show popup quickly (ms after pressing leader)
     },
     keys = {
       {

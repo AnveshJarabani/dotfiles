@@ -157,10 +157,14 @@ map("n", "<leader>gs", function()
   require("config.gh-search").search_code()
 end, { noremap = true, silent = true, desc = "🔍 GitHub Code Search" })
 
-map("n", "<leader>zl", function()
+-- Lazy plugin manager
+map("n", "<leader>ll", "<cmd>Lazy<CR>", { noremap = true, silent = true, desc = "💤 Lazy Plugin Manager" })
+
+-- LazyGit
+map("n", "<leader>lz", function()
   require("snacks").lazygit()
 end, { noremap = true, silent = true, desc = "🚀 LazyGit" })
-map("n", "<leader>zf", function()
+map("n", "<leader>lf", function()
   require("snacks").lazygit({ args = { "--screen-mode", "full" } })
 end, { noremap = true, silent = true, desc = "🚀 LazyGit Fullscreen" })
 map("n", "ZQ", ":qa!<CR>")
