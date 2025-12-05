@@ -1,0 +1,138 @@
+#!/usr/bin/env bash
+# Dataform wrapper with timeout and logging
+
+set -e
+
+# Get environment from workflow_settings.yaml if it exists
+get_env_from_workflow() {
+    if [ -f "workflow_settings.yaml" ]; then
+        grep -E "^\s*defaultRunTimeoutMinutes:" workflow_settings.yaml | awk '{print $2}' | head -1 || echo ""
+    fi
+}
+
+# Get default environment from workflow_settings.yaml
+get_default_env() {
+    if [ -f "workflow_settings.yaml" ]; then
+        grep -E "^\s*defaultDatabase:" workflow_settings.yaml | awk -F'[_-]' '{print tolower($NF)}' | head -1 || echo "dev"
+    else
+        echo "dev"
+    fi
+}
+
+# Default values
+TIMEOUT="10m"
+WORKFLOW_TIMEOUT=$(get_env_from_workflow)
+[ -n "$WORKFLOW_TIMEOUT" ] && TIMEOUT="${WORKFLOW_TIMEOUT}m"
+ENV="${ENVIRONMENT:-$(get_default_env)}"
+
+# Help message
+show_help() {
+    echo "Usage: dfm <command> [options]"
+    echo ""
+    echo "Commands:"
+    echo "  compile              Compile dataform project"
+    echo "  tag <tag-name>       Run dataform with specific tag"
+    echo "  action <action-name> Run specific action"
+    echo ""
+    echo "Options:"
+    echo "  --env <environment>  Environment name for log file (default: \$ENVIRONMENT or 'dev')"
+    echo "  --timeout <duration> Timeout duration (default: 10m)"
+    echo ""
+    echo "Examples:"
+    echo "  dfm compile"
+    echo "  dfm tag daily_refresh"
+    echo "  dfm action my_table"
+    echo "  dfm tag daily_refresh --env prod"
+    exit 0
+}
+
+# Parse arguments
+if [ $# -eq 0 ]; then
+    show_help
+fi
+
+COMMAND="$1"
+shift
+
+case "$COMMAND" in
+    -h|--help|help)
+        show_help
+        ;;
+    compile)
+        LOG_FILE="compile_${ENV}.log"
+        DF_CMD="dataform compile --timeout=$TIMEOUT"
+        ;;
+    tag)
+        if [ -z "$1" ]; then
+            echo "Error: tag name required"
+            echo "Usage: dfm tag <tag-name>"
+            exit 1
+        fi
+        TAG_NAME="$1"
+        shift
+        LOG_FILE="tag_${TAG_NAME}_${ENV}.log"
+        DF_CMD="dataform run --tags $TAG_NAME --timeout=$TIMEOUT"
+        ;;
+    action)
+        if [ -z "$1" ]; then
+            echo "Error: action name required"
+            echo "Usage: dfm action <action-name>"
+            exit 1
+        fi
+        ACTION_NAME="$1"
+        shift
+        LOG_FILE="action_${ACTION_NAME}_${ENV}.log"
+        DF_CMD="dataform run --actions $ACTION_NAME --timeout=$TIMEOUT"
+        ;;
+    *)
+        echo "Error: Unknown command '$COMMAND'"
+        echo ""
+        show_help
+        ;;
+esac
+
+# Parse remaining options
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --env)
+            OLD_ENV="$ENV"
+            ENV="$2"
+            shift 2
+            # Update log file with new env
+            LOG_FILE="${LOG_FILE/_${OLD_ENV}.log/_${ENV}.log}"
+            ;;
+        --timeout)
+            TIMEOUT="$2"
+            # Update the command with new timeout
+            DF_CMD="${DF_CMD/--timeout=*m/--timeout=$TIMEOUT}"
+            shift 2
+            ;;
+        *)
+            echo "Warning: Unknown option '$1'"
+            shift
+            ;;
+    esac
+done
+
+echo "Running: $DF_CMD"
+echo "Timeout: $TIMEOUT"
+echo "Log file: $LOG_FILE"
+echo "----------------------------------------"
+
+# Run command with timeout and tee to log file
+timeout "$TIMEOUT" $DF_CMD 2>&1 | tee "$LOG_FILE"
+
+exit_code=${PIPESTATUS[0]}
+
+if [ $exit_code -eq 124 ]; then
+    echo ""
+    echo "Command timed out after $TIMEOUT"
+    exit 124
+elif [ $exit_code -ne 0 ]; then
+    echo ""
+    echo "Command failed with exit code $exit_code"
+    exit $exit_code
+fi
+
+echo ""
+echo "Success! Log saved to: $LOG_FILE"

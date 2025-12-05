@@ -15,6 +15,7 @@ export PATH="$PATH:$HOME/home/root/sqlpackage"
 export PATH="$PATH:$HOME/.tfenv/bin"
 export PATH="$PATH:/mnt/c/Users/AnveshJarabani/AppData/Local/Programs/Microsoft\ VS\ Code/Code.exe"
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+export PATH="$PATH:$HOME/dotfiles/scripts/bin"
 
 # ──────────────────────────────────────────────────────────────────────────
 # Default Applications
