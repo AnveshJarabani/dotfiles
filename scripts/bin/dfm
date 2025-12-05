@@ -13,7 +13,14 @@ get_env_from_workflow() {
 # Get default environment from workflow_settings.yaml
 get_default_env() {
     if [ -f "workflow_settings.yaml" ]; then
-        grep -E "^\s*defaultDatabase:" workflow_settings.yaml | awk -F'[_-]' '{print tolower($NF)}' | head -1 || echo "dev"
+        # Try to get from vars.env first
+        env_value=$(grep -A5 "^vars:" workflow_settings.yaml | grep -E "^\s+env:" | awk '{print $2}' | tr -d "'" | head -1)
+        if [ -n "$env_value" ]; then
+            echo "$env_value"
+        else
+            # Fallback to extracting from defaultProject or defaultDatabase
+            grep -E "^\s*default(Project|Database):" workflow_settings.yaml | awk -F'[_-]' '{print tolower($NF)}' | head -1 || echo "dev"
+        fi
     else
         echo "dev"
     fi
@@ -24,6 +31,9 @@ TIMEOUT="10m"
 WORKFLOW_TIMEOUT=$(get_env_from_workflow)
 [ -n "$WORKFLOW_TIMEOUT" ] && TIMEOUT="${WORKFLOW_TIMEOUT}m"
 ENV="${ENVIRONMENT:-$(get_default_env)}"
+
+# Ensure ENV is never empty
+[ -z "$ENV" ] && ENV="dev"
 
 # Help message
 show_help() {
@@ -120,7 +130,7 @@ echo "Log file: $LOG_FILE"
 echo "----------------------------------------"
 
 # Run command with timeout and tee to log file
-timeout "$TIMEOUT" $DF_CMD 2>&1 | tee "$LOG_FILE"
+timeout "$TIMEOUT" bash -c "$DF_CMD" 2>&1 | tee "$LOG_FILE"
 
 exit_code=${PIPESTATUS[0]}
 
