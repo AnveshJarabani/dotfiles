@@ -1,0 +1,2 @@
+# Ignore the generated config file (contains secrets)
+.snowsql/config

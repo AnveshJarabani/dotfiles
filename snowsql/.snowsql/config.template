@@ -1,0 +1,29 @@
+[connections.qa]
+accountname = __QA_ACCOUNT__
+username = __USERNAME__
+private_key_path = /root/.ssh/snowflake_qa.p8
+rolename = hhh_bi_writer
+dbname = WS_HHH_BI_DW_AJ
+warehousename = x_small_wh_hhh_bi
+schemaname = dbo
+
+[connections.staging]
+accountname = __STAGING_ACCOUNT__
+username = __USERNAME__
+private_key_path = /root/.ssh/snowflake_prod.p8
+rolename = hhh_bi_writer
+dbname = ws_hhh_bi_dw_staging
+warehousename = large_wh_hhh_bi_staging
+schemaname = dbo
+
+[connections.prod]
+accountname = __PROD_ACCOUNT__
+username = __USERNAME__
+private_key_path = /root/.ssh/snowflake_prod.p8
+rolename = hhh_bi_writer
+dbname = ws_hhh_bi_dw
+warehousename = large_wh_hhh_bi
+schemaname = dbo
+
+[options]
+output_format = psql
